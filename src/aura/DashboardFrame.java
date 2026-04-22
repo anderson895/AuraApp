@@ -46,7 +46,6 @@ public class DashboardFrame extends javax.swing.JFrame {
             }
         });
 
-        lblSub.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
         lblSub.setForeground(new java.awt.Color(102, 102, 102));
         lblSub.setText("Taguig City University - Enrollment and Admission");
 
@@ -54,6 +53,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         btnAdmission.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnAdmission.setForeground(new java.awt.Color(255, 255, 255));
         btnAdmission.setText("Admission Form");
+        btnAdmission.setBorderPainted(false);
         btnAdmission.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAdmissionActionPerformed(evt);
@@ -64,6 +64,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         btnRequirements.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnRequirements.setForeground(new java.awt.Color(255, 255, 255));
         btnRequirements.setText("Requirements");
+        btnRequirements.setBorderPainted(false);
         btnRequirements.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRequirementsActionPerformed(evt);
@@ -74,6 +75,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         btnEnroll.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnEnroll.setForeground(new java.awt.Color(255, 255, 255));
         btnEnroll.setText("Enroll Subjects");
+        btnEnroll.setBorderPainted(false);
         btnEnroll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEnrollActionPerformed(evt);
@@ -84,6 +86,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         btnStatus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnStatus.setForeground(new java.awt.Color(255, 255, 255));
         btnStatus.setText("View Status");
+        btnStatus.setBorderPainted(false);
         btnStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnStatusActionPerformed(evt);
@@ -99,18 +102,17 @@ public class DashboardFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblWelcome)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnLogout))
                     .addComponent(lblSub)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnAdmission, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnRequirements, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(btnEnroll, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(btnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnAdmission, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRequirements, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnEnroll, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(30, 30, 30))
         );
         layout.setVerticalGroup(

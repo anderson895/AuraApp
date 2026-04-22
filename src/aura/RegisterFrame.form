@@ -25,75 +25,74 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-        <Group type="102" alignment="0" attributes="0">
-          <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-          <Group type="103" groupAlignment="0" attributes="0">
-            <Component id="lblTitle" alignment="0" min="-2" max="-2" attributes="0"/>
-            <Component id="lblSub" alignment="0" min="-2" max="-2" attributes="0"/>
-            <Component id="lblFullName" alignment="0" min="-2" max="-2" attributes="0"/>
-            <Component id="tfFullName" alignment="0" pref="320" max="32767" attributes="0"/>
-            <Component id="lblUsername" alignment="0" min="-2" max="-2" attributes="0"/>
-            <Component id="tfUsername" alignment="0" pref="320" max="32767" attributes="0"/>
-            <Component id="lblEmail" alignment="0" min="-2" max="-2" attributes="0"/>
-            <Component id="tfEmail" alignment="0" pref="320" max="32767" attributes="0"/>
-            <Component id="lblPass" alignment="0" min="-2" max="-2" attributes="0"/>
-            <Component id="tfPass" alignment="0" pref="320" max="32767" attributes="0"/>
-            <Component id="lblConfirm" alignment="0" min="-2" max="-2" attributes="0"/>
-            <Component id="tfConfirm" alignment="0" pref="320" max="32767" attributes="0"/>
-            <Component id="lblMsg" alignment="0" min="-2" max="-2" attributes="0"/>
-            <Component id="btnRegister" alignment="0" pref="320" max="32767" attributes="0"/>
-            <Group type="102" alignment="0" attributes="0">
-              <Component id="lblHaveAcct" min="-2" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnBack" min="-2" max="-2" attributes="0"/>
-            </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lblTitle" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblSub" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblFullName" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfFullName" alignment="0" pref="320" max="32767" attributes="0"/>
+                  <Component id="lblUsername" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfUsername" alignment="0" pref="320" max="32767" attributes="0"/>
+                  <Component id="lblEmail" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfEmail" alignment="0" pref="320" max="32767" attributes="0"/>
+                  <Component id="lblPass" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfPass" alignment="0" pref="320" max="32767" attributes="0"/>
+                  <Component id="lblConfirm" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfConfirm" alignment="0" pref="320" max="32767" attributes="0"/>
+                  <Component id="lblMsg" alignment="0" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnRegister" alignment="0" pref="320" max="32767" attributes="0"/>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="lblHaveAcct" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="btnBack" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+              <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
           </Group>
-          <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
-        </Group>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-        <Group type="102" alignment="0" attributes="0">
-          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-          <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
-          <EmptySpace max="-2" attributes="0"/>
-          <Component id="lblSub" min="-2" max="-2" attributes="0"/>
-          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
-          <Component id="lblFullName" min="-2" max="-2" attributes="0"/>
-          <EmptySpace max="-2" attributes="0"/>
-          <Component id="tfFullName" min="-2" max="-2" attributes="0"/>
-          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-          <Component id="lblUsername" min="-2" max="-2" attributes="0"/>
-          <EmptySpace max="-2" attributes="0"/>
-          <Component id="tfUsername" min="-2" max="-2" attributes="0"/>
-          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-          <Component id="lblEmail" min="-2" max="-2" attributes="0"/>
-          <EmptySpace max="-2" attributes="0"/>
-          <Component id="tfEmail" min="-2" max="-2" attributes="0"/>
-          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-          <Component id="lblPass" min="-2" max="-2" attributes="0"/>
-          <EmptySpace max="-2" attributes="0"/>
-          <Component id="tfPass" min="-2" max="-2" attributes="0"/>
-          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-          <Component id="lblConfirm" min="-2" max="-2" attributes="0"/>
-          <EmptySpace max="-2" attributes="0"/>
-          <Component id="tfConfirm" min="-2" max="-2" attributes="0"/>
-          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-          <Component id="lblMsg" min="-2" max="-2" attributes="0"/>
-          <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
-          <Component id="btnRegister" min="-2" pref="38" max="-2" attributes="0"/>
-          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-          <Group type="103" groupAlignment="3" attributes="0">
-            <Component id="lblHaveAcct" alignment="3" min="-2" max="-2" attributes="0"/>
-            <Component id="btnBack" alignment="3" min="-2" max="-2" attributes="0"/>
+          <Group type="102" alignment="0" attributes="0">
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+              <Component id="lblTitle" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="lblSub" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+              <Component id="lblFullName" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="tfFullName" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+              <Component id="lblUsername" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="tfUsername" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+              <Component id="lblEmail" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="tfEmail" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+              <Component id="lblPass" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="tfPass" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+              <Component id="lblConfirm" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="tfConfirm" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+              <Component id="lblMsg" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="8" max="-2" attributes="0"/>
+              <Component id="btnRegister" min="-2" pref="38" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="lblHaveAcct" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnBack" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
           </Group>
-          <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-        </Group>
       </Group>
     </DimensionLayout>
   </Layout>
-
   <SubComponents>
     <Component class="javax.swing.JLabel" name="lblTitle">
       <Properties>
@@ -125,7 +124,8 @@
         <Property name="text" type="java.lang.String" value="Full Name"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="tfFullName"/>
+    <Component class="javax.swing.JTextField" name="tfFullName">
+    </Component>
     <Component class="javax.swing.JLabel" name="lblUsername">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -134,7 +134,8 @@
         <Property name="text" type="java.lang.String" value="Username"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="tfUsername"/>
+    <Component class="javax.swing.JTextField" name="tfUsername">
+    </Component>
     <Component class="javax.swing.JLabel" name="lblEmail">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -143,7 +144,8 @@
         <Property name="text" type="java.lang.String" value="Email Address"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="tfEmail"/>
+    <Component class="javax.swing.JTextField" name="tfEmail">
+    </Component>
     <Component class="javax.swing.JLabel" name="lblPass">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -152,7 +154,8 @@
         <Property name="text" type="java.lang.String" value="Password"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JPasswordField" name="tfPass"/>
+    <Component class="javax.swing.JPasswordField" name="tfPass">
+    </Component>
     <Component class="javax.swing.JLabel" name="lblConfirm">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -161,7 +164,8 @@
         <Property name="text" type="java.lang.String" value="Confirm Password"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JPasswordField" name="tfConfirm"/>
+    <Component class="javax.swing.JPasswordField" name="tfConfirm">
+    </Component>
     <Component class="javax.swing.JLabel" name="lblMsg">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -185,6 +189,7 @@
           <Color blue="ff" green="ff" red="ff" type="rgb"/>
         </Property>
         <Property name="text" type="java.lang.String" value="REGISTER"/>
+        <Property name="borderPainted" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRegisterActionPerformed"/>
