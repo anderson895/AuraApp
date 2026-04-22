@@ -50,7 +50,7 @@ public class AdmissionFormFrame extends JFrame {
         topBar.setBackground(UIHelper.RED);
         topBar.setBorder(new EmptyBorder(12, 20, 12, 20));
 
-        JLabel lbTitle = new JLabel("📋  Admission Application Form");
+        JLabel lbTitle = new JLabel("Admission Application Form");
         lbTitle.setFont(new Font("Segoe UI", Font.BOLD, 18));
         lbTitle.setForeground(Color.WHITE);
 
@@ -90,9 +90,9 @@ public class AdmissionFormFrame extends JFrame {
         lblStatus.setFont(UIHelper.F_SMALL);
         lblStatus.setForeground(UIHelper.DANGER);
 
-        JButton btnSave   = UIHelper.primaryBtn("💾  Save Draft");
-        JButton btnSubmit = UIHelper.primaryBtn("✅  Submit");
-        JButton btnBack   = UIHelper.outlineBtn("← Back");
+        JButton btnSave   = UIHelper.primaryBtn("Save Draft");
+        JButton btnSubmit = UIHelper.primaryBtn("Submit");
+        JButton btnBack   = UIHelper.outlineBtn("Back");
 
         btnBack.addActionListener(e -> dispose());
         btnSave.addActionListener(e -> save(false));

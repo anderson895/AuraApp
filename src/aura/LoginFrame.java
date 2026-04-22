@@ -51,23 +51,9 @@ public class LoginFrame extends JFrame {
         textBox.setLayout(new BoxLayout(textBox, BoxLayout.Y_AXIS));
         textBox.setBorder(new EmptyBorder(0, 30, 80, 30));
 
-        JLabel lbTitle = label("AURA", new Font("Segoe UI", Font.BOLD, 56), Color.WHITE);
-        lbTitle.setAlignmentX(CENTER_ALIGNMENT);
+     
 
-        JLabel lbSub = label("<html><center>Automated Enrollment &<br>Admission Portal</center></html>",
-                             new Font("Segoe UI", Font.PLAIN, 16), new Color(255, 210, 210));
-        lbSub.setAlignmentX(CENTER_ALIGNMENT);
-
-        JLabel lbTCU = label("Taguig City University • Truth · Competence · Unity",
-                             new Font("Segoe UI", Font.PLAIN, 11), new Color(255, 180, 180));
-        lbTCU.setAlignmentX(CENTER_ALIGNMENT);
-
-        textBox.add(Box.createVerticalGlue());
-        textBox.add(lbTitle);
-        textBox.add(Box.createVerticalStrut(10));
-        textBox.add(lbSub);
-        textBox.add(Box.createVerticalStrut(14));
-        textBox.add(lbTCU);
+     
 
         p.add(textBox, BorderLayout.CENTER);
         return p;

@@ -53,18 +53,7 @@ public class RegisterFrame extends JFrame {
         JLabel lbLogo = new JLabel(logoIco);
         lbLogo.setAlignmentX(CENTER_ALIGNMENT);
 
-        JLabel lbTitle = mkLabel("Join AURA", new Font("Segoe UI", Font.BOLD, 34), Color.WHITE);
-        lbTitle.setAlignmentX(CENTER_ALIGNMENT);
-
-        JLabel lbSub = mkLabel("<html><center>Start your admission journey<br>at Taguig City University</center></html>",
-                               new Font("Segoe UI", Font.PLAIN, 15), new Color(255, 210, 210));
-        lbSub.setAlignmentX(CENTER_ALIGNMENT);
-
-        box.add(Box.createVerticalGlue());
-        if (logoIco != null) { box.add(lbLogo); box.add(Box.createVerticalStrut(16)); }
-        box.add(lbTitle);
-        box.add(Box.createVerticalStrut(10));
-        box.add(lbSub);
+     
 
         p.add(box, BorderLayout.CENTER);
         return p;

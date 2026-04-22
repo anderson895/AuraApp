@@ -129,7 +129,7 @@ public class DashboardFrame extends JFrame {
 
         // Card 1 – Admission Form
         grid.add(menuCard(
-            "📋  Admission Form",
+            "Admission Form",
             "Fill out your personal information and academic background to apply for admission.",
             "Open Form",
             e -> new AdmissionFormFrame(currentUser).setVisible(true)
@@ -137,7 +137,7 @@ public class DashboardFrame extends JFrame {
 
         // Card 2 – Requirements
         grid.add(menuCard(
-            "📁  Requirements",
+            "Requirements",
             "Track and submit your required documents for enrollment (Form 138, Good Moral, etc.).",
             "Open Requirements",
             e -> new RequirementsFrame(currentUser).setVisible(true)

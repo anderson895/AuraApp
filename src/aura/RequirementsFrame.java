@@ -49,7 +49,7 @@ public class RequirementsFrame extends JFrame {
         JPanel topBar = new JPanel(new BorderLayout());
         topBar.setBackground(UIHelper.RED);
         topBar.setBorder(new EmptyBorder(12, 20, 12, 20));
-        JLabel lbTitle = new JLabel("📁  Requirements Checklist");
+        JLabel lbTitle = new JLabel("Requirements Checklist");
         lbTitle.setFont(new Font("Segoe UI", Font.BOLD, 18));
         lbTitle.setForeground(Color.WHITE);
         JLabel lbUser = new JLabel("Student: " + user.getFullName());
@@ -72,7 +72,7 @@ public class RequirementsFrame extends JFrame {
             new LineBorder(new Color(0xFFC107), 1, true),
             new EmptyBorder(8, 12, 8, 12)));
         JLabel infoLbl = new JLabel(
-            "<html>⚠  Check the box for each document you have <b>already prepared</b>. " +
+            "<html>Check the box for each document you have <b>already prepared</b>. " +
             "Bring the originals on your scheduled admission day.</html>");
         infoLbl.setFont(UIHelper.F_SMALL);
         infoLbl.setForeground(new Color(0x856404));
@@ -132,9 +132,9 @@ public class RequirementsFrame extends JFrame {
         lblStatus.setFont(UIHelper.F_SMALL);
         lblStatus.setForeground(UIHelper.DANGER);
 
-        JButton btnBack   = UIHelper.outlineBtn("← Back");
-        JButton btnSave   = UIHelper.primaryBtn("💾  Save");
-        JButton btnSubmit = UIHelper.primaryBtn("✅  Submit Requirements");
+        JButton btnBack   = UIHelper.outlineBtn("Back");
+        JButton btnSave   = UIHelper.primaryBtn("Save");
+        JButton btnSubmit = UIHelper.primaryBtn("Submit Requirements");
 
         btnBack.addActionListener(e -> dispose());
         btnSave.addActionListener(e -> save(false));
