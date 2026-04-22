@@ -1,141 +1,171 @@
 package aura;
 
-import java.awt.*;
-import java.net.URL;
 import java.sql.*;
-import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.JOptionPane;
 
 /**
- * AURA – Registration Screen
+ * AURA - Registration Screen
  */
-public class RegisterFrame extends JFrame {
-
-    private JTextField     tfFullName, tfUsername, tfEmail;
-    private JPasswordField tfPass, tfConfirm;
-    private JLabel         lblMsg;
+public class RegisterFrame extends javax.swing.JFrame {
 
     public RegisterFrame() {
-        setTitle("AURA – Create Account");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(860, 580);
+        initComponents();
         setLocationRelativeTo(null);
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        lblTitle = new javax.swing.JLabel();
+        lblSub = new javax.swing.JLabel();
+        lblFullName = new javax.swing.JLabel();
+        tfFullName = new javax.swing.JTextField();
+        lblUsername = new javax.swing.JLabel();
+        tfUsername = new javax.swing.JTextField();
+        lblEmail = new javax.swing.JLabel();
+        tfEmail = new javax.swing.JTextField();
+        lblPass = new javax.swing.JLabel();
+        tfPass = new javax.swing.JPasswordField();
+        lblConfirm = new javax.swing.JLabel();
+        tfConfirm = new javax.swing.JPasswordField();
+        lblMsg = new javax.swing.JLabel();
+        btnRegister = new javax.swing.JButton();
+        lblHaveAcct = new javax.swing.JLabel();
+        btnBack = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("AURA - Create Account");
         setResizable(false);
 
-        JSplitPane split = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, buildLeft(), buildRight());
-        split.setDividerLocation(380);
-        split.setDividerSize(0);
-        split.setEnabled(false);
-        setContentPane(split);
-    }
+        lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
+        lblTitle.setForeground(new java.awt.Color(200, 16, 46));
+        lblTitle.setText("Create Account");
 
-    // ─── Left panel ───────────────────────────────────────────
-    private JPanel buildLeft() {
-        JPanel p = new JPanel(new BorderLayout()) {
-            Image bg;
-            { URL u = getClass().getClassLoader().getResource("banner.jpg");
-              if (u != null) bg = new ImageIcon(u).getImage(); }
-            @Override protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                if (bg != null) g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
-                else { g.setColor(UIHelper.RED); g.fillRect(0, 0, getWidth(), getHeight()); }
-                g.setColor(new Color(0, 0, 0, 150));
-                g.fillRect(0, 0, getWidth(), getHeight());
+        lblSub.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        lblSub.setForeground(new java.awt.Color(102, 102, 102));
+        lblSub.setText("Fill in your details to register");
+
+        lblFullName.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblFullName.setText("Full Name");
+
+        lblUsername.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblUsername.setText("Username");
+
+        lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblEmail.setText("Email Address");
+
+        lblPass.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblPass.setText("Password");
+
+        lblConfirm.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblConfirm.setText("Confirm Password");
+
+        lblMsg.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        lblMsg.setForeground(new java.awt.Color(220, 53, 69));
+        lblMsg.setText(" ");
+
+        btnRegister.setBackground(new java.awt.Color(200, 16, 46));
+        btnRegister.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRegister.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegister.setText("REGISTER");
+        btnRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegisterActionPerformed(evt);
             }
-        };
+        });
 
-        JPanel box = new JPanel();
-        box.setOpaque(false);
-        box.setLayout(new BoxLayout(box, BoxLayout.Y_AXIS));
-        box.setBorder(new EmptyBorder(0, 30, 80, 30));
+        lblHaveAcct.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        lblHaveAcct.setForeground(new java.awt.Color(102, 102, 102));
+        lblHaveAcct.setText("Already have an account?");
 
-        ImageIcon logoIco = UIHelper.icon("logo.jpg", 90, 90);
-        JLabel lbLogo = new JLabel(logoIco);
-        lbLogo.setAlignmentX(CENTER_ALIGNMENT);
+        btnBack.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btnBack.setForeground(new java.awt.Color(200, 16, 46));
+        btnBack.setText("Sign in");
+        btnBack.setBorderPainted(false);
+        btnBack.setContentAreaFilled(false);
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
-     
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(60, 60, 60)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitle)
+                    .addComponent(lblSub)
+                    .addComponent(lblFullName)
+                    .addComponent(tfFullName, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addComponent(lblUsername)
+                    .addComponent(tfUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addComponent(lblEmail)
+                    .addComponent(tfEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addComponent(lblPass)
+                    .addComponent(tfPass, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addComponent(lblConfirm)
+                    .addComponent(tfConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addComponent(lblMsg)
+                    .addComponent(btnRegister, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblHaveAcct)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBack)))
+                .addGap(60, 60, 60))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(lblTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSub)
+                .addGap(14, 14, 14)
+                .addComponent(lblFullName)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfFullName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(lblUsername)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfUsername, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(lblEmail)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(lblPass)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(lblConfirm)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(tfConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(8, 8, 8)
+                .addComponent(lblMsg)
+                .addGap(8, 8, 8)
+                .addComponent(btnRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblHaveAcct)
+                    .addComponent(btnBack))
+                .addGap(24, 24, 24))
+        );
 
-        p.add(box, BorderLayout.CENTER);
-        return p;
-    }
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
 
-    // ─── Right panel ──────────────────────────────────────────
-    private JPanel buildRight() {
-        JPanel outer = new JPanel(new GridBagLayout());
-        outer.setBackground(UIHelper.WHITE);
+    private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
+        doRegister();
+    }//GEN-LAST:event_btnRegisterActionPerformed
 
-        JPanel form = new JPanel();
-        form.setLayout(new BoxLayout(form, BoxLayout.Y_AXIS));
-        form.setBackground(UIHelper.WHITE);
-        form.setBorder(new EmptyBorder(20, 44, 20, 44));
-        form.setPreferredSize(new Dimension(440, 540));
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        dispose();
+        new LoginFrame().setVisible(true);
+    }//GEN-LAST:event_btnBackActionPerformed
 
-        JLabel lbHead = mkLabel("Create Account", UIHelper.F_TITLE, UIHelper.RED);
-        lbHead.setAlignmentX(CENTER_ALIGNMENT);
-        JLabel lbSub = mkLabel("Fill in your details to register", UIHelper.F_SMALL, UIHelper.TEXT_GRAY);
-        lbSub.setAlignmentX(CENTER_ALIGNMENT);
-
-        // Fields
-        tfFullName = UIHelper.field(24);
-        tfUsername  = UIHelper.field(24);
-        tfEmail     = UIHelper.field(24);
-        tfPass      = UIHelper.passField(24);
-        tfConfirm   = UIHelper.passField(24);
-
-        for (JComponent c : new JComponent[]{tfFullName, tfUsername, tfEmail, tfPass, tfConfirm})
-            c.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
-
-        lblMsg = mkLabel(" ", UIHelper.F_SMALL, UIHelper.DANGER);
-        lblMsg.setAlignmentX(CENTER_ALIGNMENT);
-
-        JButton btnReg = UIHelper.primaryBtn("  REGISTER  ");
-        btnReg.setAlignmentX(CENTER_ALIGNMENT);
-        btnReg.setMaximumSize(new Dimension(Integer.MAX_VALUE, 44));
-        btnReg.addActionListener(e -> doRegister());
-
-        JPanel backRow = new JPanel(new FlowLayout(FlowLayout.CENTER, 4, 0));
-        backRow.setOpaque(false);
-        backRow.add(mkLabel("Already have an account?", UIHelper.F_SMALL, UIHelper.TEXT_GRAY));
-        JButton btnBack = linkBtn("Sign in");
-        btnBack.addActionListener(e -> { dispose(); new LoginFrame().setVisible(true); });
-        backRow.add(btnBack);
-
-        // Assemble
-        addRow(form, "Full Name",        tfFullName);
-        addRow(form, "Username",         tfUsername);
-        addRow(form, "Email Address",    tfEmail);
-        addRow(form, "Password",         tfPass);
-        addRow(form, "Confirm Password", tfConfirm);
-
-        form.add(Box.createVerticalStrut(4));
-        form.add(lblMsg);
-        form.add(Box.createVerticalStrut(6));
-        form.add(btnReg);
-        form.add(Box.createVerticalStrut(14));
-        form.add(backRow);
-
-        JPanel wrapper = new JPanel();
-        wrapper.setBackground(UIHelper.WHITE);
-        wrapper.setLayout(new BoxLayout(wrapper, BoxLayout.Y_AXIS));
-        wrapper.add(lbHead);
-        wrapper.add(Box.createVerticalStrut(4));
-        wrapper.add(lbSub);
-        wrapper.add(Box.createVerticalStrut(18));
-        wrapper.add(form);
-
-        outer.add(wrapper);
-        return outer;
-    }
-
-    private void addRow(JPanel parent, String labelText, JComponent field) {
-        JLabel lbl = mkLabel(labelText, UIHelper.F_LABEL, UIHelper.TEXT);
-        parent.add(lbl);
-        parent.add(Box.createVerticalStrut(3));
-        parent.add(field);
-        parent.add(Box.createVerticalStrut(10));
-    }
-
-    // ─── Register logic ───────────────────────────────────────
     private void doRegister() {
         String fullName = tfFullName.getText().trim();
         String username = tfUsername.getText().trim();
@@ -146,15 +176,9 @@ public class RegisterFrame extends JFrame {
         if (fullName.isEmpty() || username.isEmpty() || email.isEmpty() || pass.isEmpty()) {
             setMsg("Please fill in all fields.", false); return;
         }
-        if (!pass.equals(confirm)) {
-            setMsg("Passwords do not match.", false); return;
-        }
-        if (pass.length() < 6) {
-            setMsg("Password must be at least 6 characters.", false); return;
-        }
-        if (!email.contains("@")) {
-            setMsg("Please enter a valid email.", false); return;
-        }
+        if (!pass.equals(confirm)) { setMsg("Passwords do not match.", false); return; }
+        if (pass.length() < 6)     { setMsg("Password must be at least 6 characters.", false); return; }
+        if (!email.contains("@"))  { setMsg("Please enter a valid email.", false); return; }
 
         try (Connection c = DatabaseConnection.getConnection();
              PreparedStatement ps = c.prepareStatement(
@@ -165,7 +189,7 @@ public class RegisterFrame extends JFrame {
             ps.setString(4, fullName);
             ps.executeUpdate();
             JOptionPane.showMessageDialog(this,
-                "✅ Account created successfully!\nYou can now log in.",
+                "Account created successfully! You can now log in.",
                 "Registration Complete", JOptionPane.INFORMATION_MESSAGE);
             dispose();
             new LoginFrame().setVisible(true);
@@ -178,19 +202,26 @@ public class RegisterFrame extends JFrame {
 
     private void setMsg(String text, boolean ok) {
         lblMsg.setText(text);
-        lblMsg.setForeground(ok ? UIHelper.GREEN : UIHelper.DANGER);
+        lblMsg.setForeground(ok ? new java.awt.Color(40, 167, 69)
+                                : new java.awt.Color(220, 53, 69));
     }
 
-    private static JLabel mkLabel(String t, Font f, Color c) {
-        JLabel l = new JLabel(t); l.setFont(f); l.setForeground(c); return l;
-    }
-
-    private static JButton linkBtn(String text) {
-        JButton b = new JButton(text);
-        b.setFont(UIHelper.F_SMALL); b.setForeground(UIHelper.RED);
-        b.setBorderPainted(false); b.setContentAreaFilled(false);
-        b.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        b.setMargin(new Insets(0,0,0,0));
-        return b;
-    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnRegister;
+    private javax.swing.JLabel lblConfirm;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblFullName;
+    private javax.swing.JLabel lblHaveAcct;
+    private javax.swing.JLabel lblMsg;
+    private javax.swing.JLabel lblPass;
+    private javax.swing.JLabel lblSub;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblUsername;
+    private javax.swing.JPasswordField tfConfirm;
+    private javax.swing.JTextField tfEmail;
+    private javax.swing.JTextField tfFullName;
+    private javax.swing.JPasswordField tfPass;
+    private javax.swing.JTextField tfUsername;
+    // End of variables declaration//GEN-END:variables
 }

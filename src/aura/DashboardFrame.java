@@ -1,197 +1,170 @@
 package aura;
 
-import java.awt.*;
-import java.net.URL;
-import javax.swing.*;
-import javax.swing.border.*;
+import javax.swing.JOptionPane;
 
 /**
- * AURA – Dashboard / Main Menu
- * Shows after successful login.
+ * AURA - Student Dashboard
  */
-public class DashboardFrame extends JFrame {
+public class DashboardFrame extends javax.swing.JFrame {
 
-    private final User currentUser;
+    private User currentUser;
+
+    public DashboardFrame() {
+        initComponents();
+        setLocationRelativeTo(null);
+    }
 
     public DashboardFrame(User user) {
         this.currentUser = user;
-        setTitle("AURA – Dashboard");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(820, 560);
+        initComponents();
         setLocationRelativeTo(null);
-        setResizable(false);
-        buildUI();
+        lblWelcome.setText("Welcome, " + user.getFullName());
     }
 
-    private void buildUI() {
-        JPanel root = new JPanel(new BorderLayout());
-        root.setBackground(UIHelper.BG);
-        setContentPane(root);
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
 
-        root.add(buildHeader(), BorderLayout.NORTH);
-        root.add(buildCenter(), BorderLayout.CENTER);
-        root.add(buildFooter(), BorderLayout.SOUTH);
-    }
+        lblWelcome = new javax.swing.JLabel();
+        btnLogout = new javax.swing.JButton();
+        lblSub = new javax.swing.JLabel();
+        btnAdmission = new javax.swing.JButton();
+        btnRequirements = new javax.swing.JButton();
+        btnEnroll = new javax.swing.JButton();
+        btnStatus = new javax.swing.JButton();
 
-    // ─── Header ───────────────────────────────────────────────
-    private JPanel buildHeader() {
-        JPanel header = new JPanel(new BorderLayout()) {
-            Image bg;
-            { URL u = getClass().getClassLoader().getResource("banner.jpg");
-              if (u != null) bg = new ImageIcon(u).getImage(); }
-            @Override protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                if (bg != null) g.drawImage(bg, 0, 0, getWidth(), getHeight(), this);
-                else { g.setColor(UIHelper.RED); g.fillRect(0, 0, getWidth(), getHeight()); }
-                g.setColor(new Color(0, 0, 0, 130));
-                g.fillRect(0, 0, getWidth(), getHeight());
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("AURA - Dashboard");
+
+        lblWelcome.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        lblWelcome.setForeground(new java.awt.Color(200, 16, 46));
+        lblWelcome.setText("AURA Student Portal");
+
+        btnLogout.setText("Logout");
+        btnLogout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogoutActionPerformed(evt);
             }
-        };
-        header.setPreferredSize(new Dimension(820, 130));
-
-        JPanel left = new JPanel(new FlowLayout(FlowLayout.LEFT, 18, 0));
-        left.setOpaque(false);
-        ImageIcon logo = UIHelper.icon("logo.jpg", 72, 72);
-        if (logo != null) left.add(new JLabel(logo));
-
-        JPanel titles = new JPanel();
-        titles.setOpaque(false);
-        titles.setLayout(new BoxLayout(titles, BoxLayout.Y_AXIS));
-
-        JLabel lbAura = new JLabel("AURA Portal");
-        lbAura.setFont(new Font("Segoe UI", Font.BOLD, 22));
-        lbAura.setForeground(Color.WHITE);
-
-        JLabel lbTCU = new JLabel("Taguig City University – Enrollment & Admission");
-        lbTCU.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        lbTCU.setForeground(new Color(255, 210, 210));
-
-        titles.add(Box.createVerticalGlue());
-        titles.add(lbAura);
-        titles.add(lbTCU);
-        titles.add(Box.createVerticalGlue());
-        left.add(titles);
-
-        // Right: user info + logout
-        JPanel right = new JPanel(new FlowLayout(FlowLayout.RIGHT, 18, 0));
-        right.setOpaque(false);
-        JPanel userInfo = new JPanel();
-        userInfo.setOpaque(false);
-        userInfo.setLayout(new BoxLayout(userInfo, BoxLayout.Y_AXIS));
-
-        JLabel lbName = new JLabel(currentUser.getFullName());
-        lbName.setFont(new Font("Segoe UI", Font.BOLD, 13));
-        lbName.setForeground(Color.WHITE);
-        lbName.setAlignmentX(RIGHT_ALIGNMENT);
-
-        JLabel lbRole = new JLabel(currentUser.getRole().toUpperCase());
-        lbRole.setFont(new Font("Segoe UI", Font.PLAIN, 11));
-        lbRole.setForeground(new Color(255, 200, 200));
-        lbRole.setAlignmentX(RIGHT_ALIGNMENT);
-
-        userInfo.add(Box.createVerticalGlue());
-        userInfo.add(lbName);
-        userInfo.add(lbRole);
-        userInfo.add(Box.createVerticalGlue());
-
-        JButton btnLogout = new JButton("Logout");
-        btnLogout.setFont(UIHelper.F_SMALL);
-        btnLogout.setForeground(UIHelper.RED);
-        btnLogout.setBackground(Color.WHITE);
-        btnLogout.setFocusPainted(false);
-        btnLogout.setBorderPainted(false);
-        btnLogout.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        btnLogout.setBorder(new CompoundBorder(
-            new LineBorder(Color.WHITE, 1, true),
-            new EmptyBorder(4, 12, 4, 12)));
-        btnLogout.addActionListener(e -> {
-            int r = JOptionPane.showConfirmDialog(this, "Logout from AURA?",
-                    "Confirm Logout", JOptionPane.YES_NO_OPTION);
-            if (r == JOptionPane.YES_OPTION) { dispose(); new LoginFrame().setVisible(true); }
         });
 
-        right.add(userInfo);
-        right.add(btnLogout);
+        lblSub.setFont(new java.awt.Font("Segoe UI", 0, 12)); // NOI18N
+        lblSub.setForeground(new java.awt.Color(102, 102, 102));
+        lblSub.setText("Taguig City University - Enrollment and Admission");
 
-        header.add(left, BorderLayout.WEST);
-        header.add(right, BorderLayout.EAST);
-        return header;
-    }
+        btnAdmission.setBackground(new java.awt.Color(200, 16, 46));
+        btnAdmission.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAdmission.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdmission.setText("Admission Form");
+        btnAdmission.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdmissionActionPerformed(evt);
+            }
+        });
 
-    // ─── Center: menu cards ───────────────────────────────────
-    private JPanel buildCenter() {
-        JPanel center = new JPanel(new GridBagLayout());
-        center.setBackground(UIHelper.BG);
-        center.setBorder(new EmptyBorder(30, 40, 30, 40));
+        btnRequirements.setBackground(new java.awt.Color(200, 16, 46));
+        btnRequirements.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnRequirements.setForeground(new java.awt.Color(255, 255, 255));
+        btnRequirements.setText("Requirements");
+        btnRequirements.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRequirementsActionPerformed(evt);
+            }
+        });
 
-        JPanel grid = new JPanel(new GridLayout(1, 2, 24, 0));
-        grid.setBackground(UIHelper.BG);
+        btnEnroll.setBackground(new java.awt.Color(200, 16, 46));
+        btnEnroll.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnEnroll.setForeground(new java.awt.Color(255, 255, 255));
+        btnEnroll.setText("Enroll Subjects");
+        btnEnroll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnrollActionPerformed(evt);
+            }
+        });
 
-        // Card 1 – Admission Form
-        grid.add(menuCard(
-            "Admission Form",
-            "Fill out your personal information and academic background to apply for admission.",
-            "Open Form",
-            e -> new AdmissionFormFrame(currentUser).setVisible(true)
-        ));
+        btnStatus.setBackground(new java.awt.Color(200, 16, 46));
+        btnStatus.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnStatus.setForeground(new java.awt.Color(255, 255, 255));
+        btnStatus.setText("View Status");
+        btnStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStatusActionPerformed(evt);
+            }
+        });
 
-        // Card 2 – Requirements
-        grid.add(menuCard(
-            "Requirements",
-            "Track and submit your required documents for enrollment (Form 138, Good Moral, etc.).",
-            "Open Requirements",
-            e -> new RequirementsFrame(currentUser).setVisible(true)
-        ));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblWelcome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                        .addComponent(btnLogout))
+                    .addComponent(lblSub)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnAdmission, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnRequirements, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btnEnroll, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(btnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(30, 30, 30))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblWelcome)
+                    .addComponent(btnLogout))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblSub)
+                .addGap(30, 30, 30)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnAdmission, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRequirements, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnEnroll, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30))
+        );
 
-        center.add(grid);
-        return center;
-    }
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
 
-    private JPanel menuCard(String title, String desc, String btnText,
-                            java.awt.event.ActionListener action) {
-        JPanel p = new JPanel();
-        p.setLayout(new BoxLayout(p, BoxLayout.Y_AXIS));
-        p.setBackground(UIHelper.WHITE);
-        p.setBorder(new CompoundBorder(
-            new LineBorder(new Color(0xDDDDDD), 1, true),
-            new EmptyBorder(28, 28, 28, 28)));
+    private void btnLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogoutActionPerformed
+        int r = JOptionPane.showConfirmDialog(this, "Logout from AURA?",
+                "Confirm Logout", JOptionPane.YES_NO_OPTION);
+        if (r == JOptionPane.YES_OPTION) { dispose(); new LoginFrame().setVisible(true); }
+    }//GEN-LAST:event_btnLogoutActionPerformed
 
-        JLabel lbTitle = new JLabel(title);
-        lbTitle.setFont(new Font("Segoe UI", Font.BOLD, 17));
-        lbTitle.setForeground(UIHelper.RED);
-        lbTitle.setAlignmentX(LEFT_ALIGNMENT);
+    private void btnAdmissionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdmissionActionPerformed
+        new AdmissionFormFrame(currentUser).setVisible(true);
+    }//GEN-LAST:event_btnAdmissionActionPerformed
 
-        JTextArea lbDesc = new JTextArea(desc);
-        lbDesc.setFont(new Font("Segoe UI", Font.PLAIN, 13));
-        lbDesc.setForeground(UIHelper.TEXT_GRAY);
-        lbDesc.setEditable(false);
-        lbDesc.setOpaque(false);
-        lbDesc.setLineWrap(true);
-        lbDesc.setWrapStyleWord(true);
-        lbDesc.setAlignmentX(LEFT_ALIGNMENT);
+    private void btnRequirementsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRequirementsActionPerformed
+        new RequirementsFrame(currentUser).setVisible(true);
+    }//GEN-LAST:event_btnRequirementsActionPerformed
 
-        JButton btn = UIHelper.primaryBtn(btnText);
-        btn.setAlignmentX(LEFT_ALIGNMENT);
-        btn.addActionListener(action);
+    private void btnEnrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnrollActionPerformed
+        new EnrollmentFrame(currentUser).setVisible(true);
+    }//GEN-LAST:event_btnEnrollActionPerformed
 
-        p.add(lbTitle);
-        p.add(Box.createVerticalStrut(12));
-        p.add(lbDesc);
-        p.add(Box.createVerticalGlue());
-        p.add(Box.createVerticalStrut(20));
-        p.add(btn);
-        return p;
-    }
+    private void btnStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatusActionPerformed
+        new StatusFrame(currentUser).setVisible(true);
+    }//GEN-LAST:event_btnStatusActionPerformed
 
-    // ─── Footer ───────────────────────────────────────────────
-    private JPanel buildFooter() {
-        JPanel f = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        f.setBackground(new Color(0xEEEEEE));
-        f.setBorder(new MatteBorder(1, 0, 0, 0, UIHelper.BORDER));
-        JLabel lbl = new JLabel("AURA Portal © 2025  –  Taguig City University  •  Truth · Competence · Unity");
-        lbl.setFont(UIHelper.F_SMALL);
-        lbl.setForeground(UIHelper.TEXT_GRAY);
-        f.add(lbl);
-        return f;
-    }
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdmission;
+    private javax.swing.JButton btnEnroll;
+    private javax.swing.JButton btnLogout;
+    private javax.swing.JButton btnRequirements;
+    private javax.swing.JButton btnStatus;
+    private javax.swing.JLabel lblSub;
+    private javax.swing.JLabel lblWelcome;
+    // End of variables declaration//GEN-END:variables
 }

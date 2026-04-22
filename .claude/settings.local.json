@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p build/classes)",
+      "Bash(javac -d build/classes -sourcepath src src/aura/*.java)"
+    ]
+  }
+}

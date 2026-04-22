@@ -4,8 +4,8 @@
 --  Database Setup Script
 --
 --  HOW TO USE:
---  1. Open XAMPP → Start Apache + MySQL
---  2. Open browser → http://localhost/phpmyadmin
+--  1. Open XAMPP -> Start Apache + MySQL
+--  2. Open browser -> http://localhost/phpmyadmin
 --  3. Click "SQL" tab
 --  4. Paste this entire script and click "Go"
 -- ============================================================
@@ -16,7 +16,7 @@ CREATE DATABASE IF NOT EXISTS aura_db
 
 USE aura_db;
 
--- ── Users ────────────────────────────────────────────────────
+-- Users
 CREATE TABLE IF NOT EXISTS users (
     id         INT          AUTO_INCREMENT PRIMARY KEY,
     username   VARCHAR(50)  NOT NULL UNIQUE,
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS users (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- ── Admission Forms ──────────────────────────────────────────
+-- Admission Forms
 CREATE TABLE IF NOT EXISTS admission_forms (
     id                   INT  AUTO_INCREMENT PRIMARY KEY,
     user_id              INT  NOT NULL,
@@ -50,11 +50,12 @@ CREATE TABLE IF NOT EXISTS admission_forms (
     guardian_name        VARCHAR(150),
     guardian_contact     VARCHAR(20),
     status               ENUM('Pending','Under Review','Accepted','Rejected') DEFAULT 'Pending',
+    admin_remarks        TEXT,
     submitted_at         TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- ── Requirements ─────────────────────────────────────────────
+-- Requirements
 CREATE TABLE IF NOT EXISTS requirements (
     id                    INT AUTO_INCREMENT PRIMARY KEY,
     user_id               INT NOT NULL,
@@ -71,11 +72,49 @@ CREATE TABLE IF NOT EXISTS requirements (
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
 
--- ── Default Admin Account ─────────────────────────────────────
--- Username: admin   Password: admin123
+-- Subjects (course catalog)
+CREATE TABLE IF NOT EXISTS subjects (
+    id          INT AUTO_INCREMENT PRIMARY KEY,
+    code        VARCHAR(20)  NOT NULL UNIQUE,
+    title       VARCHAR(150) NOT NULL,
+    units       INT          DEFAULT 3,
+    program     VARCHAR(150),
+    year_level  VARCHAR(20)  DEFAULT '1st Year',
+    semester    VARCHAR(20)  DEFAULT '1st Sem',
+    created_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Enrollments
+CREATE TABLE IF NOT EXISTS enrollments (
+    id           INT AUTO_INCREMENT PRIMARY KEY,
+    user_id      INT NOT NULL,
+    subject_id   INT NOT NULL,
+    school_year  VARCHAR(20),
+    semester     VARCHAR(20),
+    enrolled_at  TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY uniq_user_subject (user_id, subject_id),
+    FOREIGN KEY (user_id)    REFERENCES users(id)    ON DELETE CASCADE,
+    FOREIGN KEY (subject_id) REFERENCES subjects(id) ON DELETE CASCADE
+);
+
+-- Default Admin Account (Username: admin  Password: admin123)
 INSERT INTO users (username, password, email, full_name, role)
 VALUES ('admin', 'admin123', 'admin@tcu.edu.ph', 'System Administrator', 'admin')
 ON DUPLICATE KEY UPDATE id = id;
+
+-- Seed Subjects (sample catalog)
+INSERT INTO subjects (code, title, units, program, year_level, semester) VALUES
+ ('IT101','Introduction to Computing',         3,'Bachelor of Science in Information Technology','1st Year','1st Sem'),
+ ('IT102','Computer Programming 1',            3,'Bachelor of Science in Information Technology','1st Year','1st Sem'),
+ ('GE101','Understanding the Self',            3,'Bachelor of Science in Information Technology','1st Year','1st Sem'),
+ ('GE102','Purposive Communication',           3,'Bachelor of Science in Information Technology','1st Year','1st Sem'),
+ ('MATH101','Mathematics in the Modern World', 3,'Bachelor of Science in Information Technology','1st Year','1st Sem'),
+ ('PE101','Physical Fitness',                  2,'Bachelor of Science in Information Technology','1st Year','1st Sem'),
+ ('NSTP101','NSTP 1',                          3,'Bachelor of Science in Information Technology','1st Year','1st Sem'),
+ ('CS101','Programming Fundamentals',          3,'Bachelor of Science in Computer Science',      '1st Year','1st Sem'),
+ ('CS102','Discrete Mathematics',              3,'Bachelor of Science in Computer Science',      '1st Year','1st Sem'),
+ ('BA101','Principles of Management',          3,'Bachelor of Science in Business Administration','1st Year','1st Sem')
+ON DUPLICATE KEY UPDATE title = VALUES(title);
 
 -- ============================================================
 --  END OF SCRIPT
