@@ -1,11 +1,21 @@
 package aura;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.io.File;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.table.DefaultTableModel;
@@ -28,6 +38,7 @@ public class AdminApplicantsFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setupTable();
         loadData();
+        UIHelper.flattenButtons(getContentPane());
     }
 
     private void setupTable() {
@@ -54,6 +65,7 @@ public class AdminApplicantsFrame extends javax.swing.JFrame {
         tblApplicants = new javax.swing.JTable();
         lblStatus = new javax.swing.JLabel();
         btnView = new javax.swing.JButton();
+        btnDocs = new javax.swing.JButton();
         btnApprove = new javax.swing.JButton();
         btnReject = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
@@ -111,6 +123,13 @@ public class AdminApplicantsFrame extends javax.swing.JFrame {
             }
         });
 
+        btnDocs.setText("View Documents");
+        btnDocs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDocsActionPerformed(evt);
+            }
+        });
+
         btnApprove.setBackground(new java.awt.Color(200, 16, 46));
         btnApprove.setForeground(new java.awt.Color(255, 255, 255));
         btnApprove.setText("Approve");
@@ -153,9 +172,11 @@ public class AdminApplicantsFrame extends javax.swing.JFrame {
                         .addComponent(btnRefresh)
                         .addGap(0, 400, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 120, Short.MAX_VALUE)
                         .addComponent(btnView)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDocs)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnApprove)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -179,6 +200,7 @@ public class AdminApplicantsFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblStatus)
                     .addComponent(btnView)
+                    .addComponent(btnDocs)
                     .addComponent(btnApprove)
                     .addComponent(btnReject)
                     .addComponent(btnBack))
@@ -199,6 +221,10 @@ public class AdminApplicantsFrame extends javax.swing.JFrame {
     private void btnViewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewActionPerformed
         viewDetails();
     }//GEN-LAST:event_btnViewActionPerformed
+
+    private void btnDocsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDocsActionPerformed
+        viewDocuments();
+    }//GEN-LAST:event_btnDocsActionPerformed
 
     private void btnApproveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnApproveActionPerformed
         updateStatus("Accepted");
@@ -319,6 +345,138 @@ public class AdminApplicantsFrame extends javax.swing.JFrame {
 
     private String str(String s) { return s == null ? "" : s; }
 
+    private static final String[][] REQ_KEYS = {
+        {"form138",             "Form 138 (Report Card)"},
+        {"good_moral",          "Certificate of Good Moral"},
+        {"birth_cert",          "PSA Birth Certificate"},
+        {"id_photo",            "2x2 ID Photos"},
+        {"medical_cert",        "Medical Certificate"},
+        {"transcript",          "Transcript of Records"},
+        {"honorable_dismissal", "Honorable Dismissal"}
+    };
+
+    private void viewDocuments() {
+        int row = tblApplicants.getSelectedRow();
+        if (row < 0) {
+            JOptionPane.showMessageDialog(this, "Please select an applicant first.",
+                "No selection", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        int userId = (int) model.getValueAt(row, 1);
+        String applicantName = String.valueOf(model.getValueAt(row, 2));
+
+        String[] paths = new String[REQ_KEYS.length];
+        boolean haveRow = false;
+        try (Connection c = DatabaseConnection.getConnection();
+             PreparedStatement ps = c.prepareStatement(
+                 "SELECT * FROM requirements WHERE user_id=?")) {
+            ps.setInt(1, userId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                haveRow = true;
+                for (int i = 0; i < REQ_KEYS.length; i++) {
+                    try { paths[i] = rs.getString("file_" + REQ_KEYS[i][0]); }
+                    catch (SQLException ignored) { paths[i] = null; }
+                }
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "DB Error: " + ex.getMessage(),
+                "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        if (!haveRow) {
+            JOptionPane.showMessageDialog(this,
+                applicantName + " has not submitted any requirements yet.",
+                "No documents", JOptionPane.INFORMATION_MESSAGE);
+            return;
+        }
+
+        JDialog dlg = new JDialog(this, "Uploaded Documents - " + applicantName, true);
+        JPanel list = new JPanel();
+        list.setLayout(new BoxLayout(list, BoxLayout.Y_AXIS));
+        list.setBorder(BorderFactory.createEmptyBorder(12, 16, 12, 16));
+        list.setBackground(Color.WHITE);
+
+        for (int i = 0; i < REQ_KEYS.length; i++) {
+            list.add(buildDocRow(REQ_KEYS[i][1], paths[i], userId, REQ_KEYS[i][0]));
+        }
+
+        JScrollPane sp = new JScrollPane(list);
+        sp.setPreferredSize(new Dimension(560, 420));
+        sp.getVerticalScrollBar().setUnitIncrement(14);
+
+        JButton close = new JButton("Close");
+        close.addActionListener(e -> dlg.dispose());
+
+        JPanel south = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        south.add(close);
+
+        dlg.getContentPane().setLayout(new BorderLayout());
+        dlg.getContentPane().add(sp, BorderLayout.CENTER);
+        dlg.getContentPane().add(south, BorderLayout.SOUTH);
+        UIHelper.flattenButtons(dlg.getContentPane());
+        dlg.pack();
+        dlg.setLocationRelativeTo(this);
+        dlg.setVisible(true);
+    }
+
+    private JPanel buildDocRow(String title, String storedPath, int userId, String key) {
+        JPanel row = new JPanel(new BorderLayout(10, 0));
+        row.setOpaque(true);
+        row.setBackground(Color.WHITE);
+        row.setBorder(BorderFactory.createCompoundBorder(
+            BorderFactory.createMatteBorder(0, 0, 1, 0, new Color(0xE0E0E0)),
+            BorderFactory.createEmptyBorder(8, 4, 8, 4)));
+        row.setMaximumSize(new Dimension(Integer.MAX_VALUE, 56));
+
+        JPanel text = new JPanel();
+        text.setOpaque(false);
+        text.setLayout(new BoxLayout(text, BoxLayout.Y_AXIS));
+
+        JLabel t = new JLabel(title);
+        t.setFont(UIHelper.F_LABEL);
+
+        File resolved = resolveUploadFile(storedPath, userId, key);
+        String status = resolved != null
+            ? "File: " + resolved.getName()
+            : "(not uploaded)";
+        JLabel s = new JLabel(status);
+        s.setFont(UIHelper.F_SMALL);
+        s.setForeground(resolved != null ? UIHelper.GREEN : UIHelper.TEXT_GRAY);
+
+        text.add(t);
+        text.add(s);
+
+        JButton open = new JButton("Open");
+        open.setFont(UIHelper.F_SMALL);
+        open.setEnabled(resolved != null);
+        final File f = resolved;
+        open.addActionListener(e -> UIHelper.openDocument(this, f));
+
+        JPanel right = new JPanel(new FlowLayout(FlowLayout.RIGHT, 0, 0));
+        right.setOpaque(false);
+        right.add(open);
+
+        row.add(text, BorderLayout.CENTER);
+        row.add(right, BorderLayout.EAST);
+        return row;
+    }
+
+    /** Prefer the DB-stored path, falling back to uploads/<userId>/req_<key>.<ext>. */
+    private File resolveUploadFile(String storedPath, int userId, String key) {
+        if (storedPath != null && !storedPath.isEmpty()) {
+            File f = new File(storedPath);
+            if (f.exists()) return f;
+        }
+        File dir = new File("uploads" + File.separator + userId);
+        if (dir.isDirectory()) {
+            File[] matches = dir.listFiles((d, name) -> name.startsWith("req_" + key + "."));
+            if (matches != null && matches.length > 0) return matches[0];
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         UIHelper.applyNimbus();
         java.awt.EventQueue.invokeLater(() ->
@@ -328,6 +486,7 @@ public class AdminApplicantsFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnApprove;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnDocs;
     private javax.swing.JButton btnRefresh;
     private javax.swing.JButton btnReject;
     private javax.swing.JButton btnView;

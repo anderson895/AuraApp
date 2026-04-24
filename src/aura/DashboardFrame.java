@@ -18,6 +18,7 @@ public class DashboardFrame extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         lblWelcome.setText("Welcome, " + user.getFullName());
+        UIHelper.flattenButtons(getContentPane());
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

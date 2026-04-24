@@ -37,6 +37,7 @@ public class AdmissionFormFrame extends javax.swing.JFrame {
         initComponents();
         customInit();
         loadExisting();
+        UIHelper.flattenButtons(getContentPane());
     }
 
     private void customInit() {

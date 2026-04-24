@@ -12,7 +12,7 @@ public class LoginFrame extends javax.swing.JFrame {
     public LoginFrame() {
         initComponents();
         setLocationRelativeTo(null);
-      
+        UIHelper.flattenButtons(getContentPane());
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

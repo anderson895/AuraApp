@@ -1,6 +1,8 @@
 package aura;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -145,5 +147,71 @@ public final class UIHelper {
     /** Same idea as guestUser() but with admin role for admin frames. */
     public static User guestAdmin() {
         return new User(0, "admin", "admin@aura.local", "Guest Admin", "admin");
+    }
+
+    /** Walk the component tree and force every JButton to be borderless. */
+    public static void flattenButtons(Container root) {
+        if (root == null) return;
+        for (Component c : root.getComponents()) {
+            if (c instanceof JButton) {
+                JButton b = (JButton) c;
+                b.setBorderPainted(false);
+                b.setFocusPainted(false);
+            }
+            if (c instanceof Container) {
+                flattenButtons((Container) c);
+            }
+        }
+    }
+
+    /** Open an uploaded document. Images render in a Swing dialog; anything
+     *  else (PDF etc.) is handed to the OS via Desktop.open(). */
+    public static void openDocument(Component parent, File file) {
+        if (file == null || !file.exists()) {
+            JOptionPane.showMessageDialog(parent,
+                "File not found:\n" + (file == null ? "(null)" : file.getAbsolutePath()),
+                "Missing file", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        String name = file.getName().toLowerCase();
+        boolean isImage = name.endsWith(".jpg") || name.endsWith(".jpeg")
+                       || name.endsWith(".png") || name.endsWith(".gif")
+                       || name.endsWith(".bmp");
+        if (isImage) {
+            showImageDialog(parent, file);
+            return;
+        }
+        try {
+            if (Desktop.isDesktopSupported()) {
+                Desktop.getDesktop().open(file);
+            } else {
+                JOptionPane.showMessageDialog(parent,
+                    "Cannot open on this platform. File is at:\n" + file.getAbsolutePath(),
+                    "Open file", JOptionPane.INFORMATION_MESSAGE);
+            }
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(parent,
+                "Unable to open file:\n" + ex.getMessage(),
+                "Open failed", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private static void showImageDialog(Component parent, File file) {
+        ImageIcon raw = new ImageIcon(file.getAbsolutePath());
+        int w = raw.getIconWidth();
+        int h = raw.getIconHeight();
+        int maxW = 800, maxH = 600;
+        if (w > maxW || h > maxH) {
+            double s = Math.min(maxW / (double) w, maxH / (double) h);
+            w = (int) (w * s);
+            h = (int) (h * s);
+            raw = new ImageIcon(raw.getImage().getScaledInstance(w, h, Image.SCALE_SMOOTH));
+        }
+        JLabel pic = new JLabel(raw);
+        JScrollPane sp = new JScrollPane(pic);
+        sp.setPreferredSize(new Dimension(Math.min(w + 40, maxW + 40),
+                                          Math.min(h + 40, maxH + 40)));
+        JOptionPane.showMessageDialog(parent, sp, file.getName(),
+            JOptionPane.PLAIN_MESSAGE);
     }
 }

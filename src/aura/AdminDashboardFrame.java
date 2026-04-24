@@ -20,6 +20,7 @@ public class AdminDashboardFrame extends javax.swing.JFrame {
         this.currentUser = user;
         initComponents();
         customInit();
+        UIHelper.flattenButtons(getContentPane());
     }
 
     private void customInit() {

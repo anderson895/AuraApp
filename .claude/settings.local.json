@@ -11,7 +11,9 @@
       "Bash(javac -d /tmp/auracheck src/aura/*.java)",
       "Bash(javac -version)",
       "Bash(javac -cp \"../dist/lib/mysql-connector-j-9.3.0.jar\" -d /tmp/auracheck aura/AdminApplicantsFrame.java aura/AdminReportsFrame.java aura/AdminStudentsFrame.java aura/AdminSubjectsFrame.java aura/EnrollmentFrame.java aura/UIHelper.java aura/User.java aura/DatabaseConnection.java)",
-      "Bash(javac -cp \"../dist/lib/mysql-connector-j-9.3.0.jar\" -d /tmp/auracheck2 aura/*.java)"
+      "Bash(javac -cp \"../dist/lib/mysql-connector-j-9.3.0.jar\" -d /tmp/auracheck2 aura/*.java)",
+      "Bash(mkdir -p /tmp/aura-out)",
+      "Bash(javac -d /tmp/aura-out -sourcepath src src/aura/*.java)"
     ]
   }
 }

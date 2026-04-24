@@ -43,6 +43,7 @@ public class RequirementsFrame extends javax.swing.JFrame {
         initComponents();
         customInit();
         loadExisting();
+        UIHelper.flattenButtons(getContentPane());
     }
 
     /** Apply theme + populate the dynamic requirement rows. */
@@ -157,6 +158,18 @@ public class RequirementsFrame extends javax.swing.JFrame {
             new LineBorder(UIHelper.RED, 1), new EmptyBorder(4, 10, 4, 10)));
         btnUpload.addActionListener(e -> chooseFile(key, idx));
 
+        JButton btnView = UIHelper.outlineBtn("View");
+        btnView.setFont(UIHelper.F_SMALL);
+        btnView.setBorder(new CompoundBorder(
+            new LineBorder(UIHelper.RED, 1), new EmptyBorder(4, 10, 4, 10)));
+        btnView.addActionListener(e -> {
+            if (filePaths[idx] == null || filePaths[idx].isEmpty()) {
+                setMsg("No file uploaded yet for: " + title, false);
+                return;
+            }
+            UIHelper.openDocument(this, new File(filePaths[idx]));
+        });
+
         JButton btnClear = UIHelper.outlineBtn("Clear");
         btnClear.setFont(UIHelper.F_SMALL);
         btnClear.setBorder(new CompoundBorder(
@@ -169,6 +182,7 @@ public class RequirementsFrame extends javax.swing.JFrame {
         });
 
         right.add(btnUpload);
+        right.add(btnView);
         right.add(btnClear);
 
         row.add(cb, BorderLayout.WEST);

@@ -25,6 +25,7 @@ public class AdminStudentsFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setupTable();
         loadData();
+        UIHelper.flattenButtons(getContentPane());
     }
 
     private void setupTable() {

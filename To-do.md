@@ -1,1 +1,1 @@
- gawin false ang lahat ng border painted sa buttons at dapat lagyan ng view ang inuplaod na documents 
+ gawin false ang lahat ng border painted sa buttons at dapat lagyan ng view ang inupload na documents 

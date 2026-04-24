@@ -38,6 +38,7 @@ public class EnrollmentFrame extends javax.swing.JFrame {
         setupTables();
         applyGateStyle();
         loadData();
+        UIHelper.flattenButtons(getContentPane());
     }
 
     private void loadAdmission() {

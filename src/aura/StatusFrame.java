@@ -19,6 +19,7 @@ public class StatusFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setTitle("AURA - My Status (" + user.getFullName() + ")");
         loadStatus();
+        UIHelper.flattenButtons(getContentPane());
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

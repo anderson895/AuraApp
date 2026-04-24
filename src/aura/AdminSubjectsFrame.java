@@ -31,6 +31,7 @@ public class AdminSubjectsFrame extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         setupTable();
         loadData();
+        UIHelper.flattenButtons(getContentPane());
     }
 
     private void setupTable() {

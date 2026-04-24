@@ -32,6 +32,7 @@ public class AdminReportsFrame extends javax.swing.JFrame {
         pnlStats.setLayout(new GridLayout(1, 4, 14, 0));
         pnlStats.setOpaque(false);
         loadReports();
+        UIHelper.flattenButtons(getContentPane());
     }
 
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
