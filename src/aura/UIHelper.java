@@ -121,4 +121,29 @@ public final class UIHelper {
         p.add(content, BorderLayout.CENTER);
         return p;
     }
+
+    /** Apply Nimbus look and feel. Used by every frame's main() so that
+     *  running any single .java file directly opens with the same theme. */
+    public static void applyNimbus() {
+        try {
+            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    UIManager.setLookAndFeel(info.getClassName());
+                    return;
+                }
+            }
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception ignored) {}
+    }
+
+    /** A throw-away guest User used when a frame is launched directly
+     *  (NetBeans "Run File") without going through Login. */
+    public static User guestUser() {
+        return new User(0, "guest", "guest@aura.local", "Guest User", "student");
+    }
+
+    /** Same idea as guestUser() but with admin role for admin frames. */
+    public static User guestAdmin() {
+        return new User(0, "admin", "admin@aura.local", "Guest Admin", "admin");
+    }
 }

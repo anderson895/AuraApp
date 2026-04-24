@@ -1,94 +1,183 @@
 package aura;
 
-import java.awt.*;
-import java.sql.*;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.table.*;
+import java.awt.GridLayout;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * AURA - Admin: manage courses / subjects catalog.
  */
-public class AdminSubjectsFrame extends JFrame {
+public class AdminSubjectsFrame extends javax.swing.JFrame {
 
-    private final User admin;
+    private User admin;
     private DefaultTableModel model;
-    private JTable table;
-    private JLabel lblStatus;
+
+    public AdminSubjectsFrame() {
+        this(UIHelper.guestAdmin());
+    }
 
     public AdminSubjectsFrame(User admin) {
         this.admin = admin;
-        setTitle("AURA - Admin: Subjects");
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(900, 540);
+        initComponents();
         setLocationRelativeTo(null);
-        buildUI();
+        setupTable();
         loadData();
     }
 
-    private void buildUI() {
-        JPanel root = new JPanel(new BorderLayout());
-        root.setBackground(UIHelper.BG);
-        setContentPane(root);
-
-        JPanel top = new JPanel(new BorderLayout());
-        top.setBackground(UIHelper.RED);
-        top.setBorder(new EmptyBorder(12, 20, 12, 20));
-        JLabel lb = new JLabel("Manage Courses / Subjects");
-        lb.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        lb.setForeground(Color.WHITE);
-        top.add(lb, BorderLayout.WEST);
-        root.add(top, BorderLayout.NORTH);
-
-        JPanel body = new JPanel(new BorderLayout(10, 10));
-        body.setBackground(UIHelper.BG);
-        body.setBorder(new EmptyBorder(14, 20, 14, 20));
-
+    private void setupTable() {
         model = new DefaultTableModel(new Object[]{
-                "ID", "Code", "Title", "Units", "Program", "Year", "Semester"
+            "ID", "Code", "Title", "Units", "Program", "Year", "Semester"
         }, 0) {
             @Override public boolean isCellEditable(int r, int c) { return false; }
         };
-        table = new JTable(model);
-        table.setRowHeight(24);
-        table.setFont(UIHelper.F_BODY);
-        table.getTableHeader().setFont(UIHelper.F_LABEL);
-        table.setSelectionBackground(new Color(0xFDE6EA));
-        JScrollPane sp = new JScrollPane(table);
-        sp.setBorder(new LineBorder(UIHelper.BORDER, 1));
-        body.add(sp, BorderLayout.CENTER);
-
-        JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
-        bottom.setBackground(UIHelper.BG);
-        lblStatus = new JLabel(" ");
-        lblStatus.setFont(UIHelper.F_SMALL);
-        lblStatus.setForeground(UIHelper.TEXT_GRAY);
-        bottom.add(lblStatus);
-
-        JButton btnAdd    = UIHelper.primaryBtn("Add");
-        JButton btnEdit   = UIHelper.outlineBtn("Edit");
-        JButton btnDelete = UIHelper.outlineBtn("Delete");
-        JButton btnBack   = UIHelper.outlineBtn("Back");
-
-        btnAdd.addActionListener(e -> openDialog(null));
-        btnEdit.addActionListener(e -> {
-            int row = table.getSelectedRow();
-            if (row < 0) { JOptionPane.showMessageDialog(this, "Select a row."); return; }
-            openDialog((int) model.getValueAt(row, 0));
-        });
-        btnDelete.addActionListener(e -> deleteSubject());
-        btnBack.addActionListener(e -> dispose());
-
-        bottom.add(btnAdd);
-        bottom.add(btnEdit);
-        bottom.add(btnDelete);
-        bottom.add(btnBack);
-
-        body.add(bottom, BorderLayout.SOUTH);
-        root.add(body, BorderLayout.CENTER);
+        tblSubjects.setModel(model);
+        tblSubjects.setFont(UIHelper.F_BODY);
+        tblSubjects.getTableHeader().setFont(UIHelper.F_LABEL);
+        tblSubjects.setSelectionBackground(new java.awt.Color(0xFDE6EA));
     }
 
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        pnlTop = new javax.swing.JPanel();
+        lblTitle = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblSubjects = new javax.swing.JTable();
+        lblStatus = new javax.swing.JLabel();
+        btnAdd = new javax.swing.JButton();
+        btnEdit = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("AURA - Admin: Subjects");
+
+        pnlTop.setBackground(new java.awt.Color(200, 16, 46));
+
+        lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTitle.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitle.setText("Manage Courses / Subjects");
+
+        javax.swing.GroupLayout pnlTopLayout = new javax.swing.GroupLayout(pnlTop);
+        pnlTop.setLayout(pnlTopLayout);
+        pnlTopLayout.setHorizontalGroup(
+            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTopLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblTitle)
+                .addContainerGap(200, Short.MAX_VALUE))
+        );
+        pnlTopLayout.setVerticalGroup(
+            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTopLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(lblTitle)
+                .addGap(12, 12, 12))
+        );
+
+        jScrollPane1.setViewportView(tblSubjects);
+
+        lblStatus.setText(" ");
+
+        btnAdd.setBackground(new java.awt.Color(200, 16, 46));
+        btnAdd.setForeground(new java.awt.Color(255, 255, 255));
+        btnAdd.setText("Add");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddActionPerformed(evt);
+            }
+        });
+
+        btnEdit.setText("Edit");
+        btnEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditActionPerformed(evt);
+            }
+        });
+
+        btnDelete.setText("Delete");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
+
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlTop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 860, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                        .addComponent(btnAdd)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEdit)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDelete)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBack)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblStatus)
+                    .addComponent(btnAdd)
+                    .addComponent(btnEdit)
+                    .addComponent(btnDelete)
+                    .addComponent(btnBack))
+                .addContainerGap())
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        openDialog(null);
+    }//GEN-LAST:event_btnAddActionPerformed
+
+    private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
+        int row = tblSubjects.getSelectedRow();
+        if (row < 0) { JOptionPane.showMessageDialog(this, "Select a row."); return; }
+        openDialog((int) model.getValueAt(row, 0));
+    }//GEN-LAST:event_btnEditActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        deleteSubject();
+    }//GEN-LAST:event_btnDeleteActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
+
     private void loadData() {
+        if (model == null) return;
         model.setRowCount(0);
         try (Connection c = DatabaseConnection.getConnection();
              PreparedStatement ps = c.prepareStatement(
@@ -189,7 +278,7 @@ public class AdminSubjectsFrame extends JFrame {
     }
 
     private void deleteSubject() {
-        int row = table.getSelectedRow();
+        int row = tblSubjects.getSelectedRow();
         if (row < 0) { JOptionPane.showMessageDialog(this, "Select a row."); return; }
         int id = (int) model.getValueAt(row, 0);
         String title = (String) model.getValueAt(row, 2);
@@ -206,4 +295,22 @@ public class AdminSubjectsFrame extends JFrame {
             JOptionPane.showMessageDialog(this, "DB Error: " + ex.getMessage());
         }
     }
+
+    public static void main(String[] args) {
+        UIHelper.applyNimbus();
+        java.awt.EventQueue.invokeLater(() ->
+            new AdminSubjectsFrame(UIHelper.guestAdmin()).setVisible(true));
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEdit;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblStatus;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JPanel pnlTop;
+    private javax.swing.JTable tblSubjects;
+    // End of variables declaration//GEN-END:variables
 }

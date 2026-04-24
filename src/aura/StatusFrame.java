@@ -10,8 +10,7 @@ public class StatusFrame extends javax.swing.JFrame {
     private User user;
 
     public StatusFrame() {
-        initComponents();
-        setLocationRelativeTo(null);
+        this(UIHelper.guestUser());
     }
 
     public StatusFrame(User user) {
@@ -175,6 +174,12 @@ public class StatusFrame extends javax.swing.JFrame {
     private String trim(String s, int n) {
         if (s == null) return "";
         return s.length() > n ? s.substring(0, n - 1) + "..." : s;
+    }
+
+    public static void main(String[] args) {
+        UIHelper.applyNimbus();
+        java.awt.EventQueue.invokeLater(() ->
+            new StatusFrame(UIHelper.guestUser()).setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

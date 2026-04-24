@@ -100,17 +100,17 @@ public class RegisterFrame extends javax.swing.JFrame {
                     .addComponent(lblTitle)
                     .addComponent(lblSub)
                     .addComponent(lblFullName)
-                    .addComponent(tfFullName, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addComponent(tfFullName, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                     .addComponent(lblUsername)
-                    .addComponent(tfUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addComponent(tfUsername, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                     .addComponent(lblEmail)
-                    .addComponent(tfEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addComponent(tfEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                     .addComponent(lblPass)
-                    .addComponent(tfPass, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addComponent(tfPass, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                     .addComponent(lblConfirm)
-                    .addComponent(tfConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addComponent(tfConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                     .addComponent(lblMsg)
-                    .addComponent(btnRegister, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+                    .addComponent(btnRegister, javax.swing.GroupLayout.DEFAULT_SIZE, 272, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblHaveAcct)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -205,6 +205,11 @@ public class RegisterFrame extends javax.swing.JFrame {
         lblMsg.setText(text);
         lblMsg.setForeground(ok ? new java.awt.Color(40, 167, 69)
                                 : new java.awt.Color(220, 53, 69));
+    }
+
+    public static void main(String[] args) {
+        UIHelper.applyNimbus();
+        java.awt.EventQueue.invokeLater(() -> new RegisterFrame().setVisible(true));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -32,7 +32,6 @@ public class LoginFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AURA - Login");
-        setResizable(false);
 
         lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 26)); // NOI18N
         lblTitle.setForeground(new java.awt.Color(200, 16, 46));

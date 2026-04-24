@@ -1,0 +1,1 @@
+ gawin false ang lahat ng border painted sa buttons at dapat lagyan ng view ang inuplaod na documents 

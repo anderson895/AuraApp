@@ -31,17 +31,17 @@
                   <Component id="lblTitle" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="lblSub" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Component id="lblFullName" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfFullName" alignment="0" pref="320" max="32767" attributes="0"/>
+                  <Component id="tfFullName" alignment="0" pref="272" max="32767" attributes="0"/>
                   <Component id="lblUsername" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfUsername" alignment="0" pref="320" max="32767" attributes="0"/>
+                  <Component id="tfUsername" alignment="0" pref="272" max="32767" attributes="0"/>
                   <Component id="lblEmail" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfEmail" alignment="0" pref="320" max="32767" attributes="0"/>
+                  <Component id="tfEmail" alignment="0" pref="272" max="32767" attributes="0"/>
                   <Component id="lblPass" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfPass" alignment="0" pref="320" max="32767" attributes="0"/>
+                  <Component id="tfPass" alignment="0" pref="272" max="32767" attributes="0"/>
                   <Component id="lblConfirm" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfConfirm" alignment="0" pref="320" max="32767" attributes="0"/>
+                  <Component id="tfConfirm" alignment="0" pref="272" max="32767" attributes="0"/>
                   <Component id="lblMsg" alignment="0" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnRegister" alignment="0" pref="320" max="32767" attributes="0"/>
+                  <Component id="btnRegister" alignment="0" pref="272" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="lblHaveAcct" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>

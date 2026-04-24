@@ -66,11 +66,27 @@ CREATE TABLE IF NOT EXISTS requirements (
     req_medical_cert      TINYINT(1) DEFAULT 0,
     req_transcript        TINYINT(1) DEFAULT 0,
     req_honorable_dismissal TINYINT(1) DEFAULT 0,
+    file_form138             VARCHAR(500),
+    file_good_moral          VARCHAR(500),
+    file_birth_cert          VARCHAR(500),
+    file_id_photo            VARCHAR(500),
+    file_medical_cert        VARCHAR(500),
+    file_transcript          VARCHAR(500),
+    file_honorable_dismissal VARCHAR(500),
     remarks               TEXT,
     submitted_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at            TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
 );
+
+-- For users who already created the table without file columns, run these:
+-- ALTER TABLE requirements ADD COLUMN file_form138             VARCHAR(500);
+-- ALTER TABLE requirements ADD COLUMN file_good_moral          VARCHAR(500);
+-- ALTER TABLE requirements ADD COLUMN file_birth_cert          VARCHAR(500);
+-- ALTER TABLE requirements ADD COLUMN file_id_photo            VARCHAR(500);
+-- ALTER TABLE requirements ADD COLUMN file_medical_cert        VARCHAR(500);
+-- ALTER TABLE requirements ADD COLUMN file_transcript          VARCHAR(500);
+-- ALTER TABLE requirements ADD COLUMN file_honorable_dismissal VARCHAR(500);
 
 -- Subjects (course catalog)
 CREATE TABLE IF NOT EXISTS subjects (

@@ -10,8 +10,7 @@ public class DashboardFrame extends javax.swing.JFrame {
     private User currentUser;
 
     public DashboardFrame() {
-        initComponents();
-        setLocationRelativeTo(null);
+        this(UIHelper.guestUser());
     }
 
     public DashboardFrame(User user) {
@@ -159,6 +158,12 @@ public class DashboardFrame extends javax.swing.JFrame {
     private void btnStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStatusActionPerformed
         new StatusFrame(currentUser).setVisible(true);
     }//GEN-LAST:event_btnStatusActionPerformed
+
+    public static void main(String[] args) {
+        UIHelper.applyNimbus();
+        java.awt.EventQueue.invokeLater(() ->
+            new DashboardFrame(UIHelper.guestUser()).setVisible(true));
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdmission;

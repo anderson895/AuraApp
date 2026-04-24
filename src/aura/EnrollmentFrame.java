@@ -1,36 +1,42 @@
 package aura;
 
-import java.awt.*;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.*;
-import javax.swing.border.*;
-import javax.swing.table.*;
+import javax.swing.JOptionPane;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 /**
  * AURA - Student: enroll subjects.
  * Gated behind admission status = Accepted.
  */
-public class EnrollmentFrame extends JFrame {
+public class EnrollmentFrame extends javax.swing.JFrame {
 
-    private final User user;
+    private User user;
     private String admissionStatus = "Pending";
     private String program = "";
     private String schoolYear = "";
 
     private DefaultTableModel availModel, enrolledModel;
-    private JTable availTable, enrolledTable;
-    private JLabel lblStatus, lblGate;
+
+    public EnrollmentFrame() {
+        this(UIHelper.guestUser());
+    }
 
     public EnrollmentFrame(User user) {
         this.user = user;
-        setTitle("AURA - Subject Enrollment");
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        setSize(980, 600);
-        setLocationRelativeTo(null);
         loadAdmission();
-        buildUI();
+        initComponents();
+        setLocationRelativeTo(null);
+        setTitle("AURA - Subject Enrollment");
+        lblUser.setText("Student: " + user.getFullName());
+        setupTables();
+        applyGateStyle();
         loadData();
     }
 
@@ -48,90 +54,224 @@ public class EnrollmentFrame extends JFrame {
         } catch (SQLException ignored) {}
     }
 
-    private void buildUI() {
-        JPanel root = new JPanel(new BorderLayout());
-        root.setBackground(UIHelper.BG);
-        setContentPane(root);
-
-        JPanel top = new JPanel(new BorderLayout());
-        top.setBackground(UIHelper.RED);
-        top.setBorder(new EmptyBorder(12, 20, 12, 20));
-        JLabel lb = new JLabel("Subject Enrollment");
-        lb.setFont(new Font("Segoe UI", Font.BOLD, 18));
-        lb.setForeground(Color.WHITE);
-        JLabel lbUser = new JLabel("Student: " + user.getFullName());
-        lbUser.setFont(UIHelper.F_SMALL);
-        lbUser.setForeground(new Color(255, 210, 210));
-        top.add(lb, BorderLayout.WEST);
-        top.add(lbUser, BorderLayout.EAST);
-        root.add(top, BorderLayout.NORTH);
-
-        JPanel body = new JPanel(new BorderLayout(10, 10));
-        body.setBackground(UIHelper.BG);
-        body.setBorder(new EmptyBorder(12, 20, 12, 20));
-
-        lblGate = new JLabel(buildGateText());
-        lblGate.setFont(UIHelper.F_LABEL);
-        lblGate.setBorder(new EmptyBorder(6, 10, 6, 10));
-        lblGate.setOpaque(true);
-        if ("Accepted".equalsIgnoreCase(admissionStatus)) {
-            lblGate.setBackground(new Color(0xD4EDDA));
-            lblGate.setForeground(new Color(0x155724));
-        } else {
-            lblGate.setBackground(new Color(0xFFF3CD));
-            lblGate.setForeground(new Color(0x856404));
-        }
-        body.add(lblGate, BorderLayout.NORTH);
-
-        // Two-pane split: available | enrolled
-        JPanel split = new JPanel(new GridLayout(1, 2, 12, 0));
-        split.setOpaque(false);
-
+    private void setupTables() {
         availModel = new DefaultTableModel(
             new Object[]{"ID", "Code", "Title", "Units", "Program", "Year", "Sem"}, 0) {
             @Override public boolean isCellEditable(int r, int c) { return false; }
         };
-        availTable = makeTable(availModel);
-
         enrolledModel = new DefaultTableModel(
             new Object[]{"EnrollID", "Code", "Title", "Units", "Enrolled At"}, 0) {
             @Override public boolean isCellEditable(int r, int c) { return false; }
         };
-        enrolledTable = makeTable(enrolledModel);
-
-        split.add(wrap("Available Subjects", availTable));
-        split.add(wrap("My Enrolled Subjects", enrolledTable));
-        body.add(split, BorderLayout.CENTER);
-
-        JPanel bottom = new JPanel(new FlowLayout(FlowLayout.RIGHT, 10, 0));
-        bottom.setBackground(UIHelper.BG);
-        lblStatus = new JLabel(" ");
-        lblStatus.setFont(UIHelper.F_SMALL);
-        lblStatus.setForeground(UIHelper.TEXT_GRAY);
-        bottom.add(lblStatus);
-
-        JButton btnEnroll = UIHelper.primaryBtn("Enroll Selected");
-        JButton btnDrop   = UIHelper.outlineBtn("Drop Selected");
-        JButton btnRefresh = UIHelper.outlineBtn("Refresh");
-        JButton btnBack   = UIHelper.outlineBtn("Back");
-
-        boolean accepted = "Accepted".equalsIgnoreCase(admissionStatus);
-        btnEnroll.setEnabled(accepted);
-        btnDrop.setEnabled(accepted);
-
-        btnEnroll.addActionListener(e -> enroll());
-        btnDrop.addActionListener(e -> drop());
-        btnRefresh.addActionListener(e -> loadData());
-        btnBack.addActionListener(e -> dispose());
-
-        bottom.add(btnRefresh);
-        bottom.add(btnEnroll);
-        bottom.add(btnDrop);
-        bottom.add(btnBack);
-        body.add(bottom, BorderLayout.SOUTH);
-
-        root.add(body, BorderLayout.CENTER);
+        tblAvailable.setModel(availModel);
+        tblEnrolled.setModel(enrolledModel);
+        tblAvailable.setFont(UIHelper.F_BODY);
+        tblEnrolled.setFont(UIHelper.F_BODY);
+        tblAvailable.getTableHeader().setFont(UIHelper.F_LABEL);
+        tblEnrolled.getTableHeader().setFont(UIHelper.F_LABEL);
+        tblAvailable.setSelectionBackground(new java.awt.Color(0xFDE6EA));
+        tblEnrolled.setSelectionBackground(new java.awt.Color(0xFDE6EA));
     }
+
+    private void applyGateStyle() {
+        lblGate.setText(buildGateText());
+        lblGate.setBorder(new EmptyBorder(6, 10, 6, 10));
+        if ("Accepted".equalsIgnoreCase(admissionStatus)) {
+            lblGate.setBackground(new java.awt.Color(0xD4EDDA));
+            lblGate.setForeground(new java.awt.Color(0x155724));
+        } else {
+            lblGate.setBackground(new java.awt.Color(0xFFF3CD));
+            lblGate.setForeground(new java.awt.Color(0x856404));
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        pnlTop = new javax.swing.JPanel();
+        lblTitle = new javax.swing.JLabel();
+        lblUser = new javax.swing.JLabel();
+        lblGate = new javax.swing.JLabel();
+        lblAvailable = new javax.swing.JLabel();
+        lblEnrolled = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblAvailable = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblEnrolled = new javax.swing.JTable();
+        lblStatus = new javax.swing.JLabel();
+        btnRefresh = new javax.swing.JButton();
+        btnEnroll = new javax.swing.JButton();
+        btnDrop = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("AURA - Subject Enrollment");
+
+        pnlTop.setBackground(new java.awt.Color(200, 16, 46));
+
+        lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTitle.setForeground(new java.awt.Color(255, 255, 255));
+        lblTitle.setText("Subject Enrollment");
+
+        lblUser.setForeground(new java.awt.Color(255, 210, 210));
+        lblUser.setText("Student:");
+
+        javax.swing.GroupLayout pnlTopLayout = new javax.swing.GroupLayout(pnlTop);
+        pnlTop.setLayout(pnlTopLayout);
+        pnlTopLayout.setHorizontalGroup(
+            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTopLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblTitle)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                .addComponent(lblUser)
+                .addGap(20, 20, 20))
+        );
+        pnlTopLayout.setVerticalGroup(
+            pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlTopLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(pnlTopLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblTitle)
+                    .addComponent(lblUser))
+                .addGap(12, 12, 12))
+        );
+
+        lblGate.setText("Admission Status: Pending");
+        lblGate.setOpaque(true);
+
+        lblAvailable.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblAvailable.setText("Available Subjects");
+
+        lblEnrolled.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblEnrolled.setText("My Enrolled Subjects");
+
+        tblAvailable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Code", "Title", "Units", "Program", "Year", "Sem"
+            }
+        ));
+        tblAvailable.setRowHeight(22);
+        jScrollPane1.setViewportView(tblAvailable);
+
+        tblEnrolled.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "EnrollID", "Code", "Title", "Units", "Enrolled At"
+            }
+        ));
+        tblEnrolled.setRowHeight(22);
+        jScrollPane2.setViewportView(tblEnrolled);
+
+        lblStatus.setText(" ");
+
+        btnRefresh.setText("Refresh");
+        btnRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRefreshActionPerformed(evt);
+            }
+        });
+
+        btnEnroll.setBackground(new java.awt.Color(200, 16, 46));
+        btnEnroll.setForeground(new java.awt.Color(255, 255, 255));
+        btnEnroll.setText("Enroll Selected");
+        btnEnroll.setBorderPainted(false);
+        btnEnroll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEnrollActionPerformed(evt);
+            }
+        });
+
+        btnDrop.setText("Drop Selected");
+        btnDrop.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDropActionPerformed(evt);
+            }
+        });
+
+        btnBack.setText("Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(pnlTop, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblGate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblAvailable)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblEnrolled)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lblStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                        .addComponent(btnRefresh)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnEnroll)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDrop)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBack)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(pnlTop, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblGate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAvailable)
+                    .addComponent(lblEnrolled))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblStatus)
+                    .addComponent(btnRefresh)
+                    .addComponent(btnEnroll)
+                    .addComponent(btnDrop)
+                    .addComponent(btnBack))
+                .addContainerGap())
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void btnRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefreshActionPerformed
+        loadData();
+    }//GEN-LAST:event_btnRefreshActionPerformed
+
+    private void btnEnrollActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnrollActionPerformed
+        enroll();
+    }//GEN-LAST:event_btnEnrollActionPerformed
+
+    private void btnDropActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDropActionPerformed
+        drop();
+    }//GEN-LAST:event_btnDropActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnBackActionPerformed
 
     private String buildGateText() {
         if ("Accepted".equalsIgnoreCase(admissionStatus)) {
@@ -139,40 +279,18 @@ public class EnrollmentFrame extends JFrame {
                    (program == null ? "" : program) +
                    (schoolYear == null ? "" : " (" + schoolYear + ")");
         }
-        return "Enrollment is locked. Your admission status is: " + admissionStatus +
-               ". Wait for the admin to approve your application.";
-    }
-
-    private JTable makeTable(DefaultTableModel model) {
-        JTable t = new JTable(model);
-        t.setRowHeight(22);
-        t.setFont(UIHelper.F_BODY);
-        t.getTableHeader().setFont(UIHelper.F_LABEL);
-        t.setSelectionBackground(new Color(0xFDE6EA));
-        return t;
-    }
-
-    private JPanel wrap(String title, JTable table) {
-        JPanel p = new JPanel(new BorderLayout(0, 6));
-        p.setBackground(UIHelper.WHITE);
-        p.setBorder(new CompoundBorder(
-            new LineBorder(UIHelper.BORDER, 1, true),
-            new EmptyBorder(10, 10, 10, 10)));
-        p.add(UIHelper.sectionLabel(title), BorderLayout.NORTH);
-        JScrollPane sp = new JScrollPane(table);
-        sp.setBorder(new LineBorder(UIHelper.BORDER, 1));
-        p.add(sp, BorderLayout.CENTER);
-        return p;
+        return "Admission Status: " + admissionStatus +
+               ". You can still try to enroll, but normally you should wait for admin approval.";
     }
 
     private void loadData() {
+        if (availModel == null || enrolledModel == null) return;
         availModel.setRowCount(0);
         enrolledModel.setRowCount(0);
 
         List<Integer> enrolledIds = new ArrayList<>();
 
         try (Connection c = DatabaseConnection.getConnection()) {
-            // Enrolled
             try (PreparedStatement ps = c.prepareStatement(
                  "SELECT e.id, s.id AS sid, s.code, s.title, s.units, e.enrolled_at " +
                  "FROM enrollments e JOIN subjects s ON s.id=e.subject_id " +
@@ -187,7 +305,6 @@ public class EnrollmentFrame extends JFrame {
                     });
                 }
             }
-            // Available: prefer matching program if set; else show all
             String sql = "SELECT id,code,title,units,program,year_level,semester FROM subjects";
             boolean useProgram = program != null && !program.isEmpty();
             if (useProgram) sql += " WHERE program=?";
@@ -219,18 +336,37 @@ public class EnrollmentFrame extends JFrame {
     }
 
     private void enroll() {
-        int[] rows = availTable.getSelectedRows();
+        if (user == null || user.getId() <= 0) {
+            JOptionPane.showMessageDialog(this,
+                "You must log in as a student first before enrolling.",
+                "No session", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+        if (!"Accepted".equalsIgnoreCase(admissionStatus)) {
+            int r = JOptionPane.showConfirmDialog(this,
+                "Your admission status is \"" + admissionStatus + "\".\n" +
+                "You normally need an Accepted admission to enroll.\n\n" +
+                "Continue enrolling anyway?",
+                "Admission not accepted", JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+            if (r != JOptionPane.YES_OPTION) return;
+        }
+
+        int[] rows = tblAvailable.getSelectedRows();
         if (rows.length == 0) {
             JOptionPane.showMessageDialog(this, "Select one or more subjects to enroll.");
             return;
         }
-        int ok = 0, fail = 0;
+
+        int ok = 0, dup = 0, fail = 0;
+        String lastError = null;
         try (Connection c = DatabaseConnection.getConnection();
              PreparedStatement ps = c.prepareStatement(
                  "INSERT INTO enrollments (user_id,subject_id,school_year,semester) VALUES (?,?,?,?)")) {
             for (int r : rows) {
                 int sid = (int) availModel.getValueAt(r, 0);
-                String sem = (String) availModel.getValueAt(r, 6);
+                Object semObj = availModel.getValueAt(r, 6);
+                String sem = semObj == null ? "" : semObj.toString();
                 try {
                     ps.setInt(1, user.getId());
                     ps.setInt(2, sid);
@@ -238,19 +374,31 @@ public class EnrollmentFrame extends JFrame {
                     ps.setString(4, sem);
                     ps.executeUpdate();
                     ok++;
-                } catch (SQLException ex) { fail++; }
+                } catch (SQLIntegrityConstraintViolationException dupEx) {
+                    dup++;
+                } catch (SQLException ex) {
+                    fail++;
+                    lastError = ex.getMessage();
+                }
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "DB Error: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "DB Error: " + ex.getMessage(),
+                "Enrollment failed", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        JOptionPane.showMessageDialog(this,
-            "Enrolled " + ok + " subject(s)." + (fail > 0 ? "\nSkipped " + fail + " (already enrolled?)." : ""));
+
+        StringBuilder msg = new StringBuilder();
+        msg.append("Enrolled ").append(ok).append(" subject(s).");
+        if (dup  > 0) msg.append("\nSkipped ").append(dup).append(" (already enrolled).");
+        if (fail > 0) msg.append("\nFailed ").append(fail).append(" (").append(lastError).append(").");
+        JOptionPane.showMessageDialog(this, msg.toString(),
+            ok > 0 ? "Success" : "Done",
+            ok > 0 ? JOptionPane.INFORMATION_MESSAGE : JOptionPane.WARNING_MESSAGE);
         loadData();
     }
 
     private void drop() {
-        int row = enrolledTable.getSelectedRow();
+        int row = tblEnrolled.getSelectedRow();
         if (row < 0) {
             JOptionPane.showMessageDialog(this, "Select an enrolled subject to drop.");
             return;
@@ -272,4 +420,28 @@ public class EnrollmentFrame extends JFrame {
             JOptionPane.showMessageDialog(this, "DB Error: " + ex.getMessage());
         }
     }
+
+    public static void main(String[] args) {
+        UIHelper.applyNimbus();
+        java.awt.EventQueue.invokeLater(() ->
+            new EnrollmentFrame(UIHelper.guestUser()).setVisible(true));
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnDrop;
+    private javax.swing.JButton btnEnroll;
+    private javax.swing.JButton btnRefresh;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblAvailable;
+    private javax.swing.JLabel lblEnrolled;
+    private javax.swing.JLabel lblGate;
+    private javax.swing.JLabel lblStatus;
+    private javax.swing.JLabel lblTitle;
+    private javax.swing.JLabel lblUser;
+    private javax.swing.JPanel pnlTop;
+    private javax.swing.JTable tblAvailable;
+    private javax.swing.JTable tblEnrolled;
+    // End of variables declaration//GEN-END:variables
 }
