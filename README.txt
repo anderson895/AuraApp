@@ -50,8 +50,8 @@ Flow:  Register → Login → Dashboard → Admission Form / Requirements
 1. REGISTER – Click "Register here" on the login screen
 2. LOGIN    – Enter your username and password
 3. DASHBOARD – Choose between:
-     📋 Admission Form  – Fill out personal & academic details
-     📁 Requirements    – Check off your submitted documents
+     Admission Form  – Fill out personal & academic details
+     Requirements    – Check off your submitted documents
 4. You can Save drafts or Submit when ready
 
 
