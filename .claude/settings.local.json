@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(javac -d build/classes -cp \"src;build/classes\" src/aura/AdmissionFormFrame.java)",
+      "Bash(javac -d build/classes -cp \"src;build/classes\" src/aura/StatusFrame.java src/aura/AdmissionFormFrame.java)"
+    ]
+  }
+}

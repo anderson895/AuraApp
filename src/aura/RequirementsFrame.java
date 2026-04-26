@@ -361,7 +361,7 @@ public class RequirementsFrame extends javax.swing.JFrame {
             .addGroup(topBarLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(lblTitle)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 300, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(lblUser)
                 .addGap(20, 20, 20))
         );
@@ -391,14 +391,14 @@ public class RequirementsFrame extends javax.swing.JFrame {
             pnlInfoBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlInfoBannerLayout.createSequentialGroup()
                 .addGap(12, 12, 12)
-                .addComponent(lblInfo)
+                .addComponent(lblInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(12, Short.MAX_VALUE))
         );
         pnlInfoBannerLayout.setVerticalGroup(
             pnlInfoBannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlInfoBannerLayout.createSequentialGroup()
                 .addGap(8, 8, 8)
-                .addComponent(lblInfo)
+                .addComponent(lblInfo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(8, 8, 8))
         );
 
@@ -409,144 +409,436 @@ public class RequirementsFrame extends javax.swing.JFrame {
         lblReqHeader.setText("Required Documents");
 
         pnlReq1.setOpaque(false);
-        cbReq1.setOpaque(false);
+
         lblTitle1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblTitle1.setForeground(new java.awt.Color(26, 26, 26));
         lblTitle1.setText("Form 138 (Report Card)");
+
         lblDesc1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblDesc1.setForeground(new java.awt.Color(102, 102, 102));
         lblDesc1.setText("Photocopy of latest Report Card");
+
         lblFile1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblFile1.setForeground(new java.awt.Color(102, 102, 102));
         lblFile1.setText("(no file uploaded)");
+
         btnUpload1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnUpload1.setText("Upload");
+
         btnView1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnView1.setText("View");
+
         btnClear1.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnClear1.setText("Clear");
-        layoutReqRow(pnlReq1, cbReq1, lblTitle1, lblDesc1, lblFile1,
-            btnUpload1, btnView1, btnClear1, sepReq1);
+
+        javax.swing.GroupLayout pnlReq1Layout = new javax.swing.GroupLayout(pnlReq1);
+        pnlReq1.setLayout(pnlReq1Layout);
+        pnlReq1Layout.setHorizontalGroup(
+            pnlReq1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReq1Layout.createSequentialGroup()
+                .addComponent(cbReq1)
+                .addGap(12, 12, 12)
+                .addGroup(pnlReq1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitle1)
+                    .addComponent(lblDesc1)
+                    .addComponent(lblFile1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(btnUpload1)
+                .addGap(4, 4, 4)
+                .addComponent(btnView1)
+                .addGap(4, 4, 4)
+                .addComponent(btnClear1))
+            .addComponent(sepReq1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+        pnlReq1Layout.setVerticalGroup(
+            pnlReq1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReq1Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(pnlReq1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbReq1)
+                    .addGroup(pnlReq1Layout.createSequentialGroup()
+                        .addComponent(lblTitle1)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblDesc1)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblFile1))
+                    .addGroup(pnlReq1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnUpload1)
+                        .addComponent(btnView1)
+                        .addComponent(btnClear1)))
+                .addGap(6, 6, 6)
+                .addComponent(sepReq1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pnlReq2.setOpaque(false);
-        cbReq2.setOpaque(false);
+
         lblTitle2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblTitle2.setForeground(new java.awt.Color(26, 26, 26));
         lblTitle2.setText("Certificate of Good Moral");
+
         lblDesc2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblDesc2.setForeground(new java.awt.Color(102, 102, 102));
         lblDesc2.setText("Original Certificate of Good Moral Character");
+
         lblFile2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblFile2.setForeground(new java.awt.Color(102, 102, 102));
         lblFile2.setText("(no file uploaded)");
+
         btnUpload2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnUpload2.setText("Upload");
+
         btnView2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnView2.setText("View");
+
         btnClear2.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnClear2.setText("Clear");
-        layoutReqRow(pnlReq2, cbReq2, lblTitle2, lblDesc2, lblFile2,
-            btnUpload2, btnView2, btnClear2, sepReq2);
+
+        javax.swing.GroupLayout pnlReq2Layout = new javax.swing.GroupLayout(pnlReq2);
+        pnlReq2.setLayout(pnlReq2Layout);
+        pnlReq2Layout.setHorizontalGroup(
+            pnlReq2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReq2Layout.createSequentialGroup()
+                .addComponent(cbReq2)
+                .addGap(12, 12, 12)
+                .addGroup(pnlReq2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitle2)
+                    .addComponent(lblDesc2)
+                    .addComponent(lblFile2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(btnUpload2)
+                .addGap(4, 4, 4)
+                .addComponent(btnView2)
+                .addGap(4, 4, 4)
+                .addComponent(btnClear2))
+            .addComponent(sepReq2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+        pnlReq2Layout.setVerticalGroup(
+            pnlReq2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReq2Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(pnlReq2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbReq2)
+                    .addGroup(pnlReq2Layout.createSequentialGroup()
+                        .addComponent(lblTitle2)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblDesc2)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblFile2))
+                    .addGroup(pnlReq2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnUpload2)
+                        .addComponent(btnView2)
+                        .addComponent(btnClear2)))
+                .addGap(6, 6, 6)
+                .addComponent(sepReq2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pnlReq3.setOpaque(false);
-        cbReq3.setOpaque(false);
+
         lblTitle3.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblTitle3.setForeground(new java.awt.Color(26, 26, 26));
         lblTitle3.setText("PSA Birth Certificate");
+
         lblDesc3.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblDesc3.setForeground(new java.awt.Color(102, 102, 102));
         lblDesc3.setText("Original or certified true copy of Birth Certificate");
+
         lblFile3.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblFile3.setForeground(new java.awt.Color(102, 102, 102));
         lblFile3.setText("(no file uploaded)");
+
         btnUpload3.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnUpload3.setText("Upload");
+
         btnView3.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnView3.setText("View");
+
         btnClear3.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnClear3.setText("Clear");
-        layoutReqRow(pnlReq3, cbReq3, lblTitle3, lblDesc3, lblFile3,
-            btnUpload3, btnView3, btnClear3, sepReq3);
+
+        javax.swing.GroupLayout pnlReq3Layout = new javax.swing.GroupLayout(pnlReq3);
+        pnlReq3.setLayout(pnlReq3Layout);
+        pnlReq3Layout.setHorizontalGroup(
+            pnlReq3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReq3Layout.createSequentialGroup()
+                .addComponent(cbReq3)
+                .addGap(12, 12, 12)
+                .addGroup(pnlReq3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitle3)
+                    .addComponent(lblDesc3)
+                    .addComponent(lblFile3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(btnUpload3)
+                .addGap(4, 4, 4)
+                .addComponent(btnView3)
+                .addGap(4, 4, 4)
+                .addComponent(btnClear3))
+            .addComponent(sepReq3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+        pnlReq3Layout.setVerticalGroup(
+            pnlReq3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReq3Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(pnlReq3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbReq3)
+                    .addGroup(pnlReq3Layout.createSequentialGroup()
+                        .addComponent(lblTitle3)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblDesc3)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblFile3))
+                    .addGroup(pnlReq3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnUpload3)
+                        .addComponent(btnView3)
+                        .addComponent(btnClear3)))
+                .addGap(6, 6, 6)
+                .addComponent(sepReq3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pnlReq4.setOpaque(false);
-        cbReq4.setOpaque(false);
+
         lblTitle4.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblTitle4.setForeground(new java.awt.Color(26, 26, 26));
         lblTitle4.setText("2x2 ID Photos (4 pcs)");
+
         lblDesc4.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblDesc4.setForeground(new java.awt.Color(102, 102, 102));
         lblDesc4.setText("Recent ID photos with white background");
+
         lblFile4.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblFile4.setForeground(new java.awt.Color(102, 102, 102));
         lblFile4.setText("(no file uploaded)");
+
         btnUpload4.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnUpload4.setText("Upload");
+
         btnView4.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnView4.setText("View");
+
         btnClear4.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnClear4.setText("Clear");
-        layoutReqRow(pnlReq4, cbReq4, lblTitle4, lblDesc4, lblFile4,
-            btnUpload4, btnView4, btnClear4, sepReq4);
+
+        javax.swing.GroupLayout pnlReq4Layout = new javax.swing.GroupLayout(pnlReq4);
+        pnlReq4.setLayout(pnlReq4Layout);
+        pnlReq4Layout.setHorizontalGroup(
+            pnlReq4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReq4Layout.createSequentialGroup()
+                .addComponent(cbReq4)
+                .addGap(12, 12, 12)
+                .addGroup(pnlReq4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitle4)
+                    .addComponent(lblDesc4)
+                    .addComponent(lblFile4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(btnUpload4)
+                .addGap(4, 4, 4)
+                .addComponent(btnView4)
+                .addGap(4, 4, 4)
+                .addComponent(btnClear4))
+            .addComponent(sepReq4, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+        pnlReq4Layout.setVerticalGroup(
+            pnlReq4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReq4Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(pnlReq4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbReq4)
+                    .addGroup(pnlReq4Layout.createSequentialGroup()
+                        .addComponent(lblTitle4)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblDesc4)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblFile4))
+                    .addGroup(pnlReq4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnUpload4)
+                        .addComponent(btnView4)
+                        .addComponent(btnClear4)))
+                .addGap(6, 6, 6)
+                .addComponent(sepReq4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pnlReq5.setOpaque(false);
-        cbReq5.setOpaque(false);
+
         lblTitle5.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblTitle5.setForeground(new java.awt.Color(26, 26, 26));
         lblTitle5.setText("Medical Certificate");
+
         lblDesc5.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblDesc5.setForeground(new java.awt.Color(102, 102, 102));
         lblDesc5.setText("Issued by a licensed physician within 6 months");
+
         lblFile5.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblFile5.setForeground(new java.awt.Color(102, 102, 102));
         lblFile5.setText("(no file uploaded)");
+
         btnUpload5.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnUpload5.setText("Upload");
+
         btnView5.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnView5.setText("View");
+
         btnClear5.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnClear5.setText("Clear");
-        layoutReqRow(pnlReq5, cbReq5, lblTitle5, lblDesc5, lblFile5,
-            btnUpload5, btnView5, btnClear5, sepReq5);
+
+        javax.swing.GroupLayout pnlReq5Layout = new javax.swing.GroupLayout(pnlReq5);
+        pnlReq5.setLayout(pnlReq5Layout);
+        pnlReq5Layout.setHorizontalGroup(
+            pnlReq5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReq5Layout.createSequentialGroup()
+                .addComponent(cbReq5)
+                .addGap(12, 12, 12)
+                .addGroup(pnlReq5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitle5)
+                    .addComponent(lblDesc5)
+                    .addComponent(lblFile5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(btnUpload5)
+                .addGap(4, 4, 4)
+                .addComponent(btnView5)
+                .addGap(4, 4, 4)
+                .addComponent(btnClear5))
+            .addComponent(sepReq5, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+        pnlReq5Layout.setVerticalGroup(
+            pnlReq5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReq5Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(pnlReq5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbReq5)
+                    .addGroup(pnlReq5Layout.createSequentialGroup()
+                        .addComponent(lblTitle5)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblDesc5)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblFile5))
+                    .addGroup(pnlReq5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnUpload5)
+                        .addComponent(btnView5)
+                        .addComponent(btnClear5)))
+                .addGap(6, 6, 6)
+                .addComponent(sepReq5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pnlReq6.setOpaque(false);
-        cbReq6.setOpaque(false);
+
         lblTitle6.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblTitle6.setForeground(new java.awt.Color(26, 26, 26));
         lblTitle6.setText("Transcript of Records");
+
         lblDesc6.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblDesc6.setForeground(new java.awt.Color(102, 102, 102));
         lblDesc6.setText("Official Transcript (for transferees)");
+
         lblFile6.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblFile6.setForeground(new java.awt.Color(102, 102, 102));
         lblFile6.setText("(no file uploaded)");
+
         btnUpload6.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnUpload6.setText("Upload");
+
         btnView6.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnView6.setText("View");
+
         btnClear6.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnClear6.setText("Clear");
-        layoutReqRow(pnlReq6, cbReq6, lblTitle6, lblDesc6, lblFile6,
-            btnUpload6, btnView6, btnClear6, sepReq6);
+
+        javax.swing.GroupLayout pnlReq6Layout = new javax.swing.GroupLayout(pnlReq6);
+        pnlReq6.setLayout(pnlReq6Layout);
+        pnlReq6Layout.setHorizontalGroup(
+            pnlReq6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReq6Layout.createSequentialGroup()
+                .addComponent(cbReq6)
+                .addGap(12, 12, 12)
+                .addGroup(pnlReq6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitle6)
+                    .addComponent(lblDesc6)
+                    .addComponent(lblFile6))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(btnUpload6)
+                .addGap(4, 4, 4)
+                .addComponent(btnView6)
+                .addGap(4, 4, 4)
+                .addComponent(btnClear6))
+            .addComponent(sepReq6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        );
+        pnlReq6Layout.setVerticalGroup(
+            pnlReq6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReq6Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(pnlReq6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbReq6)
+                    .addGroup(pnlReq6Layout.createSequentialGroup()
+                        .addComponent(lblTitle6)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblDesc6)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblFile6))
+                    .addGroup(pnlReq6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnUpload6)
+                        .addComponent(btnView6)
+                        .addComponent(btnClear6)))
+                .addGap(6, 6, 6)
+                .addComponent(sepReq6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         pnlReq7.setOpaque(false);
-        cbReq7.setOpaque(false);
+
         lblTitle7.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblTitle7.setForeground(new java.awt.Color(26, 26, 26));
         lblTitle7.setText("Honorable Dismissal");
+
         lblDesc7.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblDesc7.setForeground(new java.awt.Color(102, 102, 102));
         lblDesc7.setText("Required for transferees from other schools");
+
         lblFile7.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblFile7.setForeground(new java.awt.Color(102, 102, 102));
         lblFile7.setText("(no file uploaded)");
+
         btnUpload7.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnUpload7.setText("Upload");
+
         btnView7.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnView7.setText("View");
+
         btnClear7.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         btnClear7.setText("Clear");
-        layoutReqRow(pnlReq7, cbReq7, lblTitle7, lblDesc7, lblFile7,
-            btnUpload7, btnView7, btnClear7, null);
+
+        javax.swing.GroupLayout pnlReq7Layout = new javax.swing.GroupLayout(pnlReq7);
+        pnlReq7.setLayout(pnlReq7Layout);
+        pnlReq7Layout.setHorizontalGroup(
+            pnlReq7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReq7Layout.createSequentialGroup()
+                .addComponent(cbReq7)
+                .addGap(12, 12, 12)
+                .addGroup(pnlReq7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblTitle7)
+                    .addComponent(lblDesc7)
+                    .addComponent(lblFile7))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addComponent(btnUpload7)
+                .addGap(4, 4, 4)
+                .addComponent(btnView7)
+                .addGap(4, 4, 4)
+                .addComponent(btnClear7))
+        );
+        pnlReq7Layout.setVerticalGroup(
+            pnlReq7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlReq7Layout.createSequentialGroup()
+                .addGap(6, 6, 6)
+                .addGroup(pnlReq7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cbReq7)
+                    .addGroup(pnlReq7Layout.createSequentialGroup()
+                        .addComponent(lblTitle7)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblDesc7)
+                        .addGap(2, 2, 2)
+                        .addComponent(lblFile7))
+                    .addGroup(pnlReq7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnUpload7)
+                        .addComponent(btnView7)
+                        .addComponent(btnClear7)))
+                .addGap(6, 6, 6))
+        );
 
         javax.swing.GroupLayout pnlRequirementsLayout = new javax.swing.GroupLayout(pnlRequirements);
         pnlRequirements.setLayout(pnlRequirementsLayout);
@@ -572,13 +864,19 @@ public class RequirementsFrame extends javax.swing.JFrame {
                 .addComponent(lblReqHeader)
                 .addGap(14, 14, 14)
                 .addComponent(pnlReq1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(pnlReq2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(pnlReq3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(pnlReq4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(pnlReq5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(pnlReq6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(pnlReq7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(16, 16, 16))
+                .addGap(16, 16, Short.MAX_VALUE))
         );
 
         pnlRemarks.setBackground(new java.awt.Color(255, 255, 255));
@@ -635,7 +933,7 @@ public class RequirementsFrame extends javax.swing.JFrame {
                 .addComponent(pnlRequirements, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14)
                 .addComponent(pnlRemarks, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addGap(16, 16, Short.MAX_VALUE))
         );
 
         scrollBody.setViewportView(pnlBody);
@@ -684,7 +982,7 @@ public class RequirementsFrame extends javax.swing.JFrame {
             .addGroup(bottomBarLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
                 .addComponent(lblStatus)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnBack)
                 .addGap(10, 10, 10)
                 .addComponent(btnSave)
@@ -709,14 +1007,16 @@ public class RequirementsFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(topBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(scrollBody, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(scrollBody)
             .addComponent(bottomBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(topBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
                 .addComponent(scrollBody, javax.swing.GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
                 .addComponent(bottomBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -795,6 +1095,7 @@ public class RequirementsFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel bottomBar;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnClear1;
     private javax.swing.JButton btnClear2;
@@ -819,7 +1120,6 @@ public class RequirementsFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnView5;
     private javax.swing.JButton btnView6;
     private javax.swing.JButton btnView7;
-    private javax.swing.JPanel bottomBar;
     private javax.swing.JCheckBox cbReq1;
     private javax.swing.JCheckBox cbReq2;
     private javax.swing.JCheckBox cbReq3;

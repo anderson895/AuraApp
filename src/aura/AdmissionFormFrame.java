@@ -39,6 +39,13 @@ public class AdmissionFormFrame extends javax.swing.JFrame {
         tfEmail.setText(user.getEmail());
         tfSchoolYear.setText(LocalDate.now().getYear() + "-" + (LocalDate.now().getYear() + 1));
 
+        // Birthdate dropdowns: populate years, then days (recomputed on month/year change)
+        populateBirthYears();
+        populateBirthDays();
+        java.awt.event.ActionListener dayUpdater = e -> populateBirthDays();
+        cbBirthMonth.addActionListener(dayUpdater);
+        cbBirthYear.addActionListener(dayUpdater);
+
         // Section card borders (kept out of the .form so the designer shows
         // clean panels without the extra wrapper styling)
         Border card = new CompoundBorder(
@@ -86,8 +93,8 @@ public class AdmissionFormFrame extends javax.swing.JFrame {
         if (tfLastName.getText().trim().isEmpty() || tfFirstName.getText().trim().isEmpty()) {
             setMsg("Last name and first name are required.", false); return;
         }
-        if (tfBirthdate.getText().trim().isEmpty()) {
-            setMsg("Date of birth is required (YYYY-MM-DD).", false); return;
+        if (composeBirthdate().isEmpty()) {
+            setMsg("Please select a complete date of birth.", false); return;
         }
         if (tfAddress.getText().trim().isEmpty() || tfContact.getText().trim().isEmpty()) {
             setMsg("Address and contact number are required.", false); return;
@@ -145,7 +152,7 @@ public class AdmissionFormFrame extends javax.swing.JFrame {
         ps.setString(1, tfLastName.getText().trim());
         ps.setString(2, tfFirstName.getText().trim());
         ps.setString(3, tfMiddleName.getText().trim());
-        ps.setString(4, tfBirthdate.getText().trim());
+        ps.setString(4, composeBirthdate());
         ps.setString(5, tfBirthplace.getText().trim());
         ps.setString(6, (String) cbGender.getSelectedItem());
         ps.setString(7, (String) cbCivilStatus.getSelectedItem());
@@ -173,7 +180,7 @@ public class AdmissionFormFrame extends javax.swing.JFrame {
                 tfLastName.setText(rs.getString("last_name"));
                 tfFirstName.setText(rs.getString("first_name"));
                 tfMiddleName.setText(coalesce(rs.getString("middle_name")));
-                tfBirthdate.setText(coalesce(rs.getString("birthdate")));
+                setBirthdate(rs.getString("birthdate"));
                 tfBirthplace.setText(coalesce(rs.getString("birthplace")));
                 tfNationality.setText(coalesce(rs.getString("nationality")));
                 tfReligion.setText(coalesce(rs.getString("religion")));
@@ -202,6 +209,82 @@ public class AdmissionFormFrame extends javax.swing.JFrame {
 
     private String coalesce(String s) { return s != null ? s : ""; }
 
+    // ─── Birthdate dropdown helpers ─────────────────────────────
+
+    private void populateBirthYears() {
+        int currentYear = LocalDate.now().getYear();
+        javax.swing.DefaultComboBoxModel<String> model = new javax.swing.DefaultComboBoxModel<>();
+        model.addElement("-- Year --");
+        for (int y = currentYear - 10; y >= currentYear - 80; y--) {
+            model.addElement(String.valueOf(y));
+        }
+        cbBirthYear.setModel(model);
+    }
+
+    private void populateBirthDays() {
+        int month = cbBirthMonth.getSelectedIndex(); // 1–12, 0 if not selected
+        int year = 0;
+        Object yearItem = cbBirthYear.getSelectedItem();
+        if (yearItem != null) {
+            try { year = Integer.parseInt(yearItem.toString()); } catch (NumberFormatException ignored) {}
+        }
+
+        int maxDays;
+        switch (month) {
+            case 4: case 6: case 9: case 11: maxDays = 30; break;
+            case 2:
+                boolean leap = year > 0 && ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0);
+                maxDays = leap ? 29 : 28;
+                break;
+            default: maxDays = 31;
+        }
+
+        int prevDay = cbBirthDay.getSelectedIndex();
+        javax.swing.DefaultComboBoxModel<String> model = new javax.swing.DefaultComboBoxModel<>();
+        model.addElement("-- Day --");
+        for (int d = 1; d <= maxDays; d++) {
+            model.addElement(String.valueOf(d));
+        }
+        cbBirthDay.setModel(model);
+        if (prevDay > 0 && prevDay <= maxDays) {
+            cbBirthDay.setSelectedIndex(prevDay);
+        }
+    }
+
+    private String composeBirthdate() {
+        int monthIdx = cbBirthMonth.getSelectedIndex();
+        int dayIdx = cbBirthDay.getSelectedIndex();
+        int yearIdx = cbBirthYear.getSelectedIndex();
+        if (monthIdx <= 0 || dayIdx <= 0 || yearIdx <= 0) return "";
+        return String.format("%s-%02d-%02d", cbBirthYear.getSelectedItem(), monthIdx, dayIdx);
+    }
+
+    private void setBirthdate(String iso) {
+        if (iso == null || iso.length() < 10) {
+            cbBirthMonth.setSelectedIndex(0);
+            cbBirthYear.setSelectedIndex(0);
+            populateBirthDays();
+            return;
+        }
+        try {
+            int year  = Integer.parseInt(iso.substring(0, 4));
+            int month = Integer.parseInt(iso.substring(5, 7));
+            int day   = Integer.parseInt(iso.substring(8, 10));
+            String yStr = String.valueOf(year);
+            for (int i = 0; i < cbBirthYear.getItemCount(); i++) {
+                if (yStr.equals(cbBirthYear.getItemAt(i))) {
+                    cbBirthYear.setSelectedIndex(i);
+                    break;
+                }
+            }
+            cbBirthMonth.setSelectedIndex(month);
+            populateBirthDays();
+            if (day >= 1 && day < cbBirthDay.getItemCount()) {
+                cbBirthDay.setSelectedIndex(day);
+            }
+        } catch (NumberFormatException ignored) {}
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -222,7 +305,10 @@ public class AdmissionFormFrame extends javax.swing.JFrame {
         lblGender = new javax.swing.JLabel();
         cbGender = new javax.swing.JComboBox<>();
         lblBirthdate = new javax.swing.JLabel();
-        tfBirthdate = new javax.swing.JTextField();
+        pnlBirthdate = new javax.swing.JPanel();
+        cbBirthMonth = new javax.swing.JComboBox<>();
+        cbBirthDay = new javax.swing.JComboBox<>();
+        cbBirthYear = new javax.swing.JComboBox<>();
         lblBirthplace = new javax.swing.JLabel();
         tfBirthplace = new javax.swing.JTextField();
         lblNationality = new javax.swing.JLabel();
@@ -320,9 +406,35 @@ public class AdmissionFormFrame extends javax.swing.JFrame {
         cbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", "Other" }));
 
         lblBirthdate.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        lblBirthdate.setText("Date of Birth * (YYYY-MM-DD)");
+        lblBirthdate.setText("Date of Birth *");
 
-        tfBirthdate.setToolTipText("Format: YYYY-MM-DD");
+        pnlBirthdate.setOpaque(false);
+
+        cbBirthMonth.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {
+            "-- Month --", "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        }));
+        cbBirthDay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Day --" }));
+        cbBirthYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "-- Year --" }));
+
+        javax.swing.GroupLayout pnlBirthdateLayout = new javax.swing.GroupLayout(pnlBirthdate);
+        pnlBirthdate.setLayout(pnlBirthdateLayout);
+        pnlBirthdateLayout.setHorizontalGroup(
+            pnlBirthdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBirthdateLayout.createSequentialGroup()
+                .addComponent(cbBirthMonth, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(6, 6, 6)
+                .addComponent(cbBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(6, 6, 6)
+                .addComponent(cbBirthYear, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        pnlBirthdateLayout.setVerticalGroup(
+            pnlBirthdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBirthdateLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addComponent(cbBirthMonth, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbBirthDay, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cbBirthYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         lblBirthplace.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblBirthplace.setText("Place of Birth");
@@ -355,7 +467,7 @@ public class AdmissionFormFrame extends javax.swing.JFrame {
                             .addComponent(lblMiddleName)
                             .addComponent(tfMiddleName, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                             .addComponent(lblBirthdate)
-                            .addComponent(tfBirthdate, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                            .addComponent(pnlBirthdate, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                             .addComponent(lblNationality)
                             .addComponent(tfNationality, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
                             .addComponent(lblCivilStatus)
@@ -399,7 +511,7 @@ public class AdmissionFormFrame extends javax.swing.JFrame {
                     .addComponent(lblBirthplace))
                 .addGap(3, 3, 3)
                 .addGroup(pnlPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(pnlBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfBirthplace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(pnlPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -730,6 +842,9 @@ public class AdmissionFormFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JPanel bottomBar;
+    private javax.swing.JComboBox<String> cbBirthDay;
+    private javax.swing.JComboBox<String> cbBirthMonth;
+    private javax.swing.JComboBox<String> cbBirthYear;
     private javax.swing.JComboBox<String> cbCivilStatus;
     private javax.swing.JComboBox<String> cbGender;
     private javax.swing.JComboBox<String> cbProgram;
@@ -759,13 +874,13 @@ public class AdmissionFormFrame extends javax.swing.JFrame {
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUser;
     private javax.swing.JPanel pnlAcademic;
+    private javax.swing.JPanel pnlBirthdate;
     private javax.swing.JPanel pnlBody;
     private javax.swing.JPanel pnlContact;
     private javax.swing.JPanel pnlGuardian;
     private javax.swing.JPanel pnlPersonal;
     private javax.swing.JScrollPane scrollBody;
     private javax.swing.JTextField tfAddress;
-    private javax.swing.JTextField tfBirthdate;
     private javax.swing.JTextField tfBirthplace;
     private javax.swing.JTextField tfContact;
     private javax.swing.JTextField tfEmail;
