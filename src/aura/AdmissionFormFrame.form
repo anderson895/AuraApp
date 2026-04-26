@@ -115,9 +115,571 @@
               <Color blue="f4" green="f4" red="f4" type="rgb"/>
             </Property>
           </Properties>
-          <Layout class="org.netbeans.modules.form.compat2.layouts.DesignBoxLayout">
-            <Property name="axis" type="int" value="1"/>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="pnlPersonal" max="32767" attributes="0"/>
+                          <Component id="pnlContact" max="32767" attributes="0"/>
+                          <Component id="pnlAcademic" max="32767" attributes="0"/>
+                          <Component id="pnlGuardian" max="32767" attributes="0"/>
+                      </Group>
+                      <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
+                      <Component id="pnlPersonal" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                      <Component id="pnlContact" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                      <Component id="pnlAcademic" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                      <Component id="pnlGuardian" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="16" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
           </Layout>
+          <SubComponents>
+            <Container class="javax.swing.JPanel" name="pnlPersonal">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblPersonalHdr" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblLastName" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfLastName" pref="280" max="32767" attributes="0"/>
+                                      <Component id="lblMiddleName" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfMiddleName" pref="280" max="32767" attributes="0"/>
+                                      <Component id="lblBirthdate" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfBirthdate" pref="280" max="32767" attributes="0"/>
+                                      <Component id="lblNationality" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfNationality" pref="280" max="32767" attributes="0"/>
+                                      <Component id="lblCivilStatus" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cbCivilStatus" pref="280" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblFirstName" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfFirstName" pref="280" max="32767" attributes="0"/>
+                                      <Component id="lblGender" min="-2" max="-2" attributes="0"/>
+                                      <Component id="cbGender" pref="280" max="32767" attributes="0"/>
+                                      <Component id="lblBirthplace" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfBirthplace" pref="280" max="32767" attributes="0"/>
+                                      <Component id="lblReligion" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfReligion" pref="280" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          <Component id="lblPersonalHdr" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblLastName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblFirstName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="tfLastName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tfFirstName" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblMiddleName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblGender" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="tfMiddleName" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbGender" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblBirthdate" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblBirthplace" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="tfBirthdate" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tfBirthplace" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblNationality" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblReligion" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="tfNationality" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tfReligion" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Component id="lblCivilStatus" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Component id="cbCivilStatus" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="14" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="lblPersonalHdr">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="15" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="2e" green="10" red="c8" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Personal Information"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblLastName">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Last Name *"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="tfLastName"/>
+                <Component class="javax.swing.JLabel" name="lblFirstName">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="First Name *"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="tfFirstName"/>
+                <Component class="javax.swing.JLabel" name="lblMiddleName">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Middle Name"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="tfMiddleName"/>
+                <Component class="javax.swing.JLabel" name="lblGender">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Gender *"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="cbGender">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="3">
+                        <StringItem index="0" value="Male"/>
+                        <StringItem index="1" value="Female"/>
+                        <StringItem index="2" value="Other"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblBirthdate">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Date of Birth * (YYYY-MM-DD)"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="tfBirthdate">
+                  <Properties>
+                    <Property name="toolTipText" type="java.lang.String" value="Format: YYYY-MM-DD"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblBirthplace">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Place of Birth"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="tfBirthplace"/>
+                <Component class="javax.swing.JLabel" name="lblNationality">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Nationality"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="tfNationality">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="Filipino"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblReligion">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Religion"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="tfReligion"/>
+                <Component class="javax.swing.JLabel" name="lblCivilStatus">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Civil Status"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="cbCivilStatus">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="4">
+                        <StringItem index="0" value="Single"/>
+                        <StringItem index="1" value="Married"/>
+                        <StringItem index="2" value="Widowed"/>
+                        <StringItem index="3" value="Separated"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                </Component>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="pnlContact">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblContactHdr" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblAddress" min="-2" max="-2" attributes="0"/>
+                              <Component id="tfAddress" pref="500" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblContact" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfContact" pref="280" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblEmail" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfEmail" pref="280" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          <Component id="lblContactHdr" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          <Component id="lblAddress" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Component id="tfAddress" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblContact" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="tfContact" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tfEmail" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="14" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="lblContactHdr">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="15" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="2e" green="10" red="c8" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Contact Information"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblAddress">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Home Address *"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="tfAddress"/>
+                <Component class="javax.swing.JLabel" name="lblContact">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Contact Number *"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="tfContact"/>
+                <Component class="javax.swing.JLabel" name="lblEmail">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Email Address *"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="tfEmail"/>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="pnlAcademic">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblAcademicHdr" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblProgram" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbProgram" pref="500" max="32767" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblPrevSchool" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfPrevSchool" pref="280" max="32767" attributes="0"/>
+                                      <Component id="lblSchoolYear" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfSchoolYear" pref="280" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblPrevStrand" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfPrevStrand" pref="280" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          <Component id="lblAcademicHdr" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          <Component id="lblProgram" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Component id="cbProgram" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblPrevSchool" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblPrevStrand" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="tfPrevSchool" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tfPrevStrand" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                          <Component id="lblSchoolYear" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Component id="tfSchoolYear" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="14" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="lblAcademicHdr">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="15" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="2e" green="10" red="c8" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Academic Information"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblProgram">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Program Applying For *"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JComboBox" name="cbProgram">
+                  <Properties>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="11">
+                        <StringItem index="0" value="-- Select Program --"/>
+                        <StringItem index="1" value="Bachelor of Science in Information Technology"/>
+                        <StringItem index="2" value="Bachelor of Science in Computer Science"/>
+                        <StringItem index="3" value="Bachelor of Science in Business Administration"/>
+                        <StringItem index="4" value="Bachelor of Science in Accountancy"/>
+                        <StringItem index="5" value="Bachelor of Science in Criminology"/>
+                        <StringItem index="6" value="Bachelor of Science in Nursing"/>
+                        <StringItem index="7" value="Bachelor of Science in Education"/>
+                        <StringItem index="8" value="Bachelor of Science in Engineering"/>
+                        <StringItem index="9" value="Bachelor of Arts in Communication"/>
+                        <StringItem index="10" value="Other"/>
+                      </StringArray>
+                    </Property>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblPrevSchool">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Previous School"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="tfPrevSchool"/>
+                <Component class="javax.swing.JLabel" name="lblPrevStrand">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Previous Strand / Track"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="tfPrevStrand"/>
+                <Component class="javax.swing.JLabel" name="lblSchoolYear">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="School Year"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="tfSchoolYear"/>
+              </SubComponents>
+            </Container>
+            <Container class="javax.swing.JPanel" name="pnlGuardian">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+              </Properties>
+
+              <Layout>
+                <DimensionLayout dim="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lblGuardianHdr" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblGuardian" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfGuardian" pref="280" max="32767" attributes="0"/>
+                                  </Group>
+                                  <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="lblGuardianContact" min="-2" max="-2" attributes="0"/>
+                                      <Component id="tfGuardianContact" pref="280" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+                <DimensionLayout dim="1">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          <Component id="lblGuardianHdr" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="lblGuardian" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lblGuardianContact" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="3" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="tfGuardian" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="tfGuardianContact" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="14" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                </DimensionLayout>
+              </Layout>
+              <SubComponents>
+                <Component class="javax.swing.JLabel" name="lblGuardianHdr">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="15" style="1"/>
+                    </Property>
+                    <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                      <Color blue="2e" green="10" red="c8" type="rgb"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Guardian / Parent Information"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="lblGuardian">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Guardian / Parent Name"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="tfGuardian"/>
+                <Component class="javax.swing.JLabel" name="lblGuardianContact">
+                  <Properties>
+                    <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                      <Font name="Segoe UI" size="13" style="1"/>
+                    </Property>
+                    <Property name="text" type="java.lang.String" value="Guardian Contact No."/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JTextField" name="tfGuardianContact"/>
+              </SubComponents>
+            </Container>
+          </SubComponents>
         </Container>
       </SubComponents>
     </Container>

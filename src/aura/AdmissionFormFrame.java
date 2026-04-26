@@ -7,26 +7,15 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 /**
- * AURA – Admission Application Form
+ * AURA – Admission Application Form.
+ * All visual structure lives in AdmissionFormFrame.form (drag-and-drop in the
+ * NetBeans GUI Builder). customInit() only adds runtime polish that the form
+ * editor cannot easily express (per-user defaults, button hover, section
+ * panel borders, etc.).
  */
 public class AdmissionFormFrame extends javax.swing.JFrame {
 
     private final User user;
-
-    // Personal
-    private JTextField tfLastName, tfFirstName, tfMiddleName;
-    private JTextField tfBirthdate, tfBirthplace, tfNationality, tfReligion;
-    private JComboBox<String> cbGender, cbCivilStatus;
-
-    // Contact
-    private JTextField tfAddress, tfContact, tfEmail;
-
-    // Academic
-    private JComboBox<String> cbProgram;
-    private JTextField tfPrevSchool, tfPrevStrand, tfSchoolYear;
-
-    // Guardian
-    private JTextField tfGuardian, tfGuardianContact;
 
     public AdmissionFormFrame() {
         this(UIHelper.guestUser());
@@ -41,24 +30,28 @@ public class AdmissionFormFrame extends javax.swing.JFrame {
     }
 
     private void customInit() {
-        setSize(800, 680);
+        setSize(820, 700);
         setLocationRelativeTo(null);
 
         lblUser.setText("Applicant: " + user.getFullName());
 
-        // Populate the scrollable body with section cards
-        pnlBody.setBorder(new EmptyBorder(16, 20, 16, 20));
-        pnlBody.add(buildPersonalSection());
-        pnlBody.add(Box.createVerticalStrut(14));
-        pnlBody.add(buildContactSection());
-        pnlBody.add(Box.createVerticalStrut(14));
-        pnlBody.add(buildAcademicSection());
-        pnlBody.add(Box.createVerticalStrut(14));
-        pnlBody.add(buildGuardianSection());
+        // Runtime-only field defaults
+        tfEmail.setText(user.getEmail());
+        tfSchoolYear.setText(LocalDate.now().getYear() + "-" + (LocalDate.now().getYear() + 1));
 
-        scrollBody.getVerticalScrollBar().setUnitIncrement(14);
+        // Section card borders (kept out of the .form so the designer shows
+        // clean panels without the extra wrapper styling)
+        Border card = new CompoundBorder(
+            new LineBorder(UIHelper.BORDER, 1, true),
+            new EmptyBorder(14, 18, 18, 18));
+        pnlPersonal.setBorder(card);
+        pnlContact.setBorder(card);
+        pnlAcademic.setBorder(card);
+        pnlGuardian.setBorder(card);
 
         bottomBar.setBorder(new MatteBorder(1, 0, 0, 0, UIHelper.BORDER));
+
+        scrollBody.getVerticalScrollBar().setUnitIncrement(14);
 
         applyPrimary(btnSave);
         applyPrimary(btnSubmit);
@@ -85,101 +78,6 @@ public class AdmissionFormFrame extends javax.swing.JFrame {
         b.setFocusPainted(false);
         b.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
         b.setBorder(new CompoundBorder(new LineBorder(UIHelper.RED, 2), new EmptyBorder(8, 18, 8, 18)));
-    }
-
-    // ─── Section builders ─────────────────────────────────────
-
-    private JPanel buildPersonalSection() {
-        JPanel p = sectionPanel("Personal Information");
-
-        tfLastName   = UIHelper.field(16);
-        tfFirstName  = UIHelper.field(16);
-        tfMiddleName = UIHelper.field(16);
-        tfBirthdate  = UIHelper.field(12);
-        tfBirthdate.setToolTipText("Format: YYYY-MM-DD");
-        tfBirthplace = UIHelper.field(20);
-        tfNationality = UIHelper.field(14);
-        tfNationality.setText("Filipino");
-        tfReligion   = UIHelper.field(14);
-
-        cbGender      = UIHelper.combo(new String[]{"Male", "Female", "Other"});
-        cbCivilStatus = UIHelper.combo(new String[]{"Single", "Married", "Widowed", "Separated"});
-
-        JPanel grid = grid2();
-        grid.add(row("Last Name *",    tfLastName));
-        grid.add(row("First Name *",   tfFirstName));
-        grid.add(row("Middle Name",    tfMiddleName));
-        grid.add(row("Gender *",       cbGender));
-        grid.add(row("Date of Birth * (YYYY-MM-DD)", tfBirthdate));
-        grid.add(row("Place of Birth", tfBirthplace));
-        grid.add(row("Nationality",    tfNationality));
-        grid.add(row("Religion",       tfReligion));
-        grid.add(row("Civil Status",   cbCivilStatus));
-
-        p.add(grid, BorderLayout.CENTER);
-        return p;
-    }
-
-    private JPanel buildContactSection() {
-        JPanel p = sectionPanel("Contact Information");
-
-        tfAddress = UIHelper.field(30);
-        tfContact = UIHelper.field(16);
-        tfEmail   = UIHelper.field(22);
-        tfEmail.setText(user.getEmail());
-
-        JPanel grid = grid2();
-        grid.add(row("Home Address *",  tfAddress));
-        grid.add(row("Contact Number *", tfContact));
-        grid.add(row("Email Address *",  tfEmail));
-
-        p.add(grid, BorderLayout.CENTER);
-        return p;
-    }
-
-    private JPanel buildAcademicSection() {
-        JPanel p = sectionPanel("Academic Information");
-
-        cbProgram = UIHelper.combo(new String[]{
-            "-- Select Program --",
-            "Bachelor of Science in Information Technology",
-            "Bachelor of Science in Computer Science",
-            "Bachelor of Science in Business Administration",
-            "Bachelor of Science in Accountancy",
-            "Bachelor of Science in Criminology",
-            "Bachelor of Science in Nursing",
-            "Bachelor of Science in Education",
-            "Bachelor of Science in Engineering",
-            "Bachelor of Arts in Communication",
-            "Other"
-        });
-        tfPrevSchool  = UIHelper.field(24);
-        tfPrevStrand  = UIHelper.field(16);
-        tfSchoolYear  = UIHelper.field(10);
-        tfSchoolYear.setText(LocalDate.now().getYear() + "-" + (LocalDate.now().getYear() + 1));
-
-        JPanel grid = grid2();
-        grid.add(row("Program Applying For *", cbProgram));
-        grid.add(row("Previous School",        tfPrevSchool));
-        grid.add(row("Previous Strand / Track", tfPrevStrand));
-        grid.add(row("School Year",             tfSchoolYear));
-
-        p.add(grid, BorderLayout.CENTER);
-        return p;
-    }
-
-    private JPanel buildGuardianSection() {
-        JPanel p = sectionPanel("Guardian / Parent Information");
-
-        tfGuardian        = UIHelper.field(24);
-        tfGuardianContact = UIHelper.field(16);
-
-        JPanel grid = grid2();
-        grid.add(row("Guardian / Parent Name", tfGuardian));
-        grid.add(row("Guardian Contact No.",   tfGuardianContact));
-
-        p.add(grid, BorderLayout.CENTER);
-        return p;
     }
 
     // ─── Save / load ──────────────────────────────────────────
@@ -229,7 +127,7 @@ public class AdmissionFormFrame extends javax.swing.JFrame {
 
             if (submit) {
                 JOptionPane.showMessageDialog(this,
-                    "✅ Application submitted successfully!\n" +
+                    "Application submitted successfully!\n" +
                     "Status: Under Review\n" +
                     "Please complete your requirements next.",
                     "Submitted", JOptionPane.INFORMATION_MESSAGE);
@@ -288,42 +186,13 @@ public class AdmissionFormFrame extends javax.swing.JFrame {
                 tfGuardian.setText(coalesce(rs.getString("guardian_name")));
                 tfGuardianContact.setText(coalesce(rs.getString("guardian_contact")));
                 cbGender.setSelectedItem(rs.getString("gender"));
+                cbCivilStatus.setSelectedItem(rs.getString("civil_status"));
                 cbProgram.setSelectedItem(rs.getString("program"));
                 setMsg("Existing form loaded. Status: " + rs.getString("status"), true);
             }
         } catch (SQLException ex) {
             // No saved form yet
         }
-    }
-
-    // ─── Layout helpers ───────────────────────────────────────
-
-    private JPanel sectionPanel(String title) {
-        JPanel p = new JPanel(new BorderLayout(0, 10));
-        p.setBackground(UIHelper.WHITE);
-        p.setBorder(new CompoundBorder(
-            new LineBorder(UIHelper.BORDER, 1, true),
-            new EmptyBorder(14, 18, 18, 18)));
-        p.setAlignmentX(LEFT_ALIGNMENT);
-        p.add(UIHelper.sectionLabel(title), BorderLayout.NORTH);
-        return p;
-    }
-
-    private JPanel grid2() {
-        JPanel g = new JPanel(new GridLayout(0, 2, 14, 10));
-        g.setOpaque(false);
-        return g;
-    }
-
-    private JPanel row(String labelText, JComponent field) {
-        JPanel p = new JPanel(new BorderLayout(0, 3));
-        p.setOpaque(false);
-        JLabel lbl = new JLabel(labelText);
-        lbl.setFont(UIHelper.F_LABEL);
-        lbl.setForeground(UIHelper.TEXT);
-        p.add(lbl, BorderLayout.NORTH);
-        p.add(field, BorderLayout.CENTER);
-        return p;
     }
 
     private void setMsg(String text, boolean ok) {
@@ -342,6 +211,50 @@ public class AdmissionFormFrame extends javax.swing.JFrame {
         lblUser = new javax.swing.JLabel();
         scrollBody = new javax.swing.JScrollPane();
         pnlBody = new javax.swing.JPanel();
+        pnlPersonal = new javax.swing.JPanel();
+        lblPersonalHdr = new javax.swing.JLabel();
+        lblLastName = new javax.swing.JLabel();
+        tfLastName = new javax.swing.JTextField();
+        lblFirstName = new javax.swing.JLabel();
+        tfFirstName = new javax.swing.JTextField();
+        lblMiddleName = new javax.swing.JLabel();
+        tfMiddleName = new javax.swing.JTextField();
+        lblGender = new javax.swing.JLabel();
+        cbGender = new javax.swing.JComboBox<>();
+        lblBirthdate = new javax.swing.JLabel();
+        tfBirthdate = new javax.swing.JTextField();
+        lblBirthplace = new javax.swing.JLabel();
+        tfBirthplace = new javax.swing.JTextField();
+        lblNationality = new javax.swing.JLabel();
+        tfNationality = new javax.swing.JTextField();
+        lblReligion = new javax.swing.JLabel();
+        tfReligion = new javax.swing.JTextField();
+        lblCivilStatus = new javax.swing.JLabel();
+        cbCivilStatus = new javax.swing.JComboBox<>();
+        pnlContact = new javax.swing.JPanel();
+        lblContactHdr = new javax.swing.JLabel();
+        lblAddress = new javax.swing.JLabel();
+        tfAddress = new javax.swing.JTextField();
+        lblContact = new javax.swing.JLabel();
+        tfContact = new javax.swing.JTextField();
+        lblEmail = new javax.swing.JLabel();
+        tfEmail = new javax.swing.JTextField();
+        pnlAcademic = new javax.swing.JPanel();
+        lblAcademicHdr = new javax.swing.JLabel();
+        lblProgram = new javax.swing.JLabel();
+        cbProgram = new javax.swing.JComboBox<>();
+        lblPrevSchool = new javax.swing.JLabel();
+        tfPrevSchool = new javax.swing.JTextField();
+        lblPrevStrand = new javax.swing.JLabel();
+        tfPrevStrand = new javax.swing.JTextField();
+        lblSchoolYear = new javax.swing.JLabel();
+        tfSchoolYear = new javax.swing.JTextField();
+        pnlGuardian = new javax.swing.JPanel();
+        lblGuardianHdr = new javax.swing.JLabel();
+        lblGuardian = new javax.swing.JLabel();
+        tfGuardian = new javax.swing.JTextField();
+        lblGuardianContact = new javax.swing.JLabel();
+        tfGuardianContact = new javax.swing.JTextField();
         bottomBar = new javax.swing.JPanel();
         lblStatus = new javax.swing.JLabel();
         btnBack = new javax.swing.JButton();
@@ -385,7 +298,330 @@ public class AdmissionFormFrame extends javax.swing.JFrame {
         scrollBody.setBorder(null);
 
         pnlBody.setBackground(new java.awt.Color(244, 244, 244));
-        pnlBody.setLayout(new javax.swing.BoxLayout(pnlBody, javax.swing.BoxLayout.Y_AXIS));
+
+        pnlPersonal.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblPersonalHdr.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        lblPersonalHdr.setForeground(new java.awt.Color(200, 16, 46));
+        lblPersonalHdr.setText("Personal Information");
+
+        lblLastName.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblLastName.setText("Last Name *");
+
+        lblFirstName.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblFirstName.setText("First Name *");
+
+        lblMiddleName.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblMiddleName.setText("Middle Name");
+
+        lblGender.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblGender.setText("Gender *");
+
+        cbGender.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Male", "Female", "Other" }));
+
+        lblBirthdate.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblBirthdate.setText("Date of Birth * (YYYY-MM-DD)");
+
+        tfBirthdate.setToolTipText("Format: YYYY-MM-DD");
+
+        lblBirthplace.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblBirthplace.setText("Place of Birth");
+
+        lblNationality.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblNationality.setText("Nationality");
+
+        tfNationality.setText("Filipino");
+
+        lblReligion.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblReligion.setText("Religion");
+
+        lblCivilStatus.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblCivilStatus.setText("Civil Status");
+
+        cbCivilStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Single", "Married", "Widowed", "Separated" }));
+
+        javax.swing.GroupLayout pnlPersonalLayout = new javax.swing.GroupLayout(pnlPersonal);
+        pnlPersonal.setLayout(pnlPersonalLayout);
+        pnlPersonalLayout.setHorizontalGroup(
+            pnlPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPersonalLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(pnlPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPersonalHdr)
+                    .addGroup(pnlPersonalLayout.createSequentialGroup()
+                        .addGroup(pnlPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblLastName)
+                            .addComponent(tfLastName, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                            .addComponent(lblMiddleName)
+                            .addComponent(tfMiddleName, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                            .addComponent(lblBirthdate)
+                            .addComponent(tfBirthdate, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                            .addComponent(lblNationality)
+                            .addComponent(tfNationality, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                            .addComponent(lblCivilStatus)
+                            .addComponent(cbCivilStatus, 0, 280, Short.MAX_VALUE))
+                        .addGap(14, 14, 14)
+                        .addGroup(pnlPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblFirstName)
+                            .addComponent(tfFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                            .addComponent(lblGender)
+                            .addComponent(cbGender, 0, 280, Short.MAX_VALUE)
+                            .addComponent(lblBirthplace)
+                            .addComponent(tfBirthplace, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                            .addComponent(lblReligion)
+                            .addComponent(tfReligion, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))))
+                .addGap(18, 18, 18))
+        );
+        pnlPersonalLayout.setVerticalGroup(
+            pnlPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlPersonalLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(lblPersonalHdr)
+                .addGap(14, 14, 14)
+                .addGroup(pnlPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblLastName)
+                    .addComponent(lblFirstName))
+                .addGap(3, 3, 3)
+                .addGroup(pnlPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(pnlPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblMiddleName)
+                    .addComponent(lblGender))
+                .addGap(3, 3, 3)
+                .addGroup(pnlPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfMiddleName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbGender, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(pnlPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblBirthdate)
+                    .addComponent(lblBirthplace))
+                .addGap(3, 3, 3)
+                .addGroup(pnlPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfBirthplace, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addGroup(pnlPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblNationality)
+                    .addComponent(lblReligion))
+                .addGap(3, 3, 3)
+                .addGroup(pnlPersonalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfNationality, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfReligion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addComponent(lblCivilStatus)
+                .addGap(3, 3, 3)
+                .addComponent(cbCivilStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
+        pnlContact.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblContactHdr.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        lblContactHdr.setForeground(new java.awt.Color(200, 16, 46));
+        lblContactHdr.setText("Contact Information");
+
+        lblAddress.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblAddress.setText("Home Address *");
+
+        lblContact.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblContact.setText("Contact Number *");
+
+        lblEmail.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblEmail.setText("Email Address *");
+
+        javax.swing.GroupLayout pnlContactLayout = new javax.swing.GroupLayout(pnlContact);
+        pnlContact.setLayout(pnlContactLayout);
+        pnlContactLayout.setHorizontalGroup(
+            pnlContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlContactLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(pnlContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblContactHdr)
+                    .addComponent(lblAddress)
+                    .addComponent(tfAddress, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+                    .addGroup(pnlContactLayout.createSequentialGroup()
+                        .addGroup(pnlContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblContact)
+                            .addComponent(tfContact, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
+                        .addGap(14, 14, 14)
+                        .addGroup(pnlContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblEmail)
+                            .addComponent(tfEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))))
+                .addGap(18, 18, 18))
+        );
+        pnlContactLayout.setVerticalGroup(
+            pnlContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlContactLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(lblContactHdr)
+                .addGap(14, 14, 14)
+                .addComponent(lblAddress)
+                .addGap(3, 3, 3)
+                .addComponent(tfAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(pnlContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblContact)
+                    .addComponent(lblEmail))
+                .addGap(3, 3, 3)
+                .addGroup(pnlContactLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
+        pnlAcademic.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblAcademicHdr.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        lblAcademicHdr.setForeground(new java.awt.Color(200, 16, 46));
+        lblAcademicHdr.setText("Academic Information");
+
+        lblProgram.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblProgram.setText("Program Applying For *");
+
+        cbProgram.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {
+            "-- Select Program --",
+            "Bachelor of Science in Information Technology",
+            "Bachelor of Science in Computer Science",
+            "Bachelor of Science in Business Administration",
+            "Bachelor of Science in Accountancy",
+            "Bachelor of Science in Criminology",
+            "Bachelor of Science in Nursing",
+            "Bachelor of Science in Education",
+            "Bachelor of Science in Engineering",
+            "Bachelor of Arts in Communication",
+            "Other"
+        }));
+
+        lblPrevSchool.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblPrevSchool.setText("Previous School");
+
+        lblPrevStrand.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblPrevStrand.setText("Previous Strand / Track");
+
+        lblSchoolYear.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblSchoolYear.setText("School Year");
+
+        javax.swing.GroupLayout pnlAcademicLayout = new javax.swing.GroupLayout(pnlAcademic);
+        pnlAcademic.setLayout(pnlAcademicLayout);
+        pnlAcademicLayout.setHorizontalGroup(
+            pnlAcademicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAcademicLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(pnlAcademicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAcademicHdr)
+                    .addComponent(lblProgram)
+                    .addComponent(cbProgram, 0, 500, Short.MAX_VALUE)
+                    .addGroup(pnlAcademicLayout.createSequentialGroup()
+                        .addGroup(pnlAcademicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPrevSchool)
+                            .addComponent(tfPrevSchool, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
+                            .addComponent(lblSchoolYear)
+                            .addComponent(tfSchoolYear, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
+                        .addGap(14, 14, 14)
+                        .addGroup(pnlAcademicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblPrevStrand)
+                            .addComponent(tfPrevStrand, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))))
+                .addGap(18, 18, 18))
+        );
+        pnlAcademicLayout.setVerticalGroup(
+            pnlAcademicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlAcademicLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(lblAcademicHdr)
+                .addGap(14, 14, 14)
+                .addComponent(lblProgram)
+                .addGap(3, 3, 3)
+                .addComponent(cbProgram, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addGroup(pnlAcademicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPrevSchool)
+                    .addComponent(lblPrevStrand))
+                .addGap(3, 3, 3)
+                .addGroup(pnlAcademicLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfPrevSchool, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfPrevStrand, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addComponent(lblSchoolYear)
+                .addGap(3, 3, 3)
+                .addComponent(tfSchoolYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
+        pnlGuardian.setBackground(new java.awt.Color(255, 255, 255));
+
+        lblGuardianHdr.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        lblGuardianHdr.setForeground(new java.awt.Color(200, 16, 46));
+        lblGuardianHdr.setText("Guardian / Parent Information");
+
+        lblGuardian.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblGuardian.setText("Guardian / Parent Name");
+
+        lblGuardianContact.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        lblGuardianContact.setText("Guardian Contact No.");
+
+        javax.swing.GroupLayout pnlGuardianLayout = new javax.swing.GroupLayout(pnlGuardian);
+        pnlGuardian.setLayout(pnlGuardianLayout);
+        pnlGuardianLayout.setHorizontalGroup(
+            pnlGuardianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlGuardianLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addGroup(pnlGuardianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblGuardianHdr)
+                    .addGroup(pnlGuardianLayout.createSequentialGroup()
+                        .addGroup(pnlGuardianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblGuardian)
+                            .addComponent(tfGuardian, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))
+                        .addGap(14, 14, 14)
+                        .addGroup(pnlGuardianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblGuardianContact)
+                            .addComponent(tfGuardianContact, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE))))
+                .addGap(18, 18, 18))
+        );
+        pnlGuardianLayout.setVerticalGroup(
+            pnlGuardianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlGuardianLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(lblGuardianHdr)
+                .addGap(14, 14, 14)
+                .addGroup(pnlGuardianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblGuardian)
+                    .addComponent(lblGuardianContact))
+                .addGap(3, 3, 3)
+                .addGroup(pnlGuardianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfGuardian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfGuardianContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout pnlBodyLayout = new javax.swing.GroupLayout(pnlBody);
+        pnlBody.setLayout(pnlBodyLayout);
+        pnlBodyLayout.setHorizontalGroup(
+            pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBodyLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pnlPersonal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlContact, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlAcademic, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(pnlGuardian, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20))
+        );
+        pnlBodyLayout.setVerticalGroup(
+            pnlBodyLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(pnlBodyLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(pnlPersonal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(pnlContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(pnlAcademic, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(14, 14, 14)
+                .addComponent(pnlGuardian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
+
         scrollBody.setViewportView(pnlBody);
 
         bottomBar.setBackground(new java.awt.Color(255, 255, 255));
@@ -494,11 +730,55 @@ public class AdmissionFormFrame extends javax.swing.JFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JPanel bottomBar;
+    private javax.swing.JComboBox<String> cbCivilStatus;
+    private javax.swing.JComboBox<String> cbGender;
+    private javax.swing.JComboBox<String> cbProgram;
+    private javax.swing.JLabel lblAcademicHdr;
+    private javax.swing.JLabel lblAddress;
+    private javax.swing.JLabel lblBirthdate;
+    private javax.swing.JLabel lblBirthplace;
+    private javax.swing.JLabel lblCivilStatus;
+    private javax.swing.JLabel lblContact;
+    private javax.swing.JLabel lblContactHdr;
+    private javax.swing.JLabel lblEmail;
+    private javax.swing.JLabel lblFirstName;
+    private javax.swing.JLabel lblGender;
+    private javax.swing.JLabel lblGuardian;
+    private javax.swing.JLabel lblGuardianContact;
+    private javax.swing.JLabel lblGuardianHdr;
+    private javax.swing.JLabel lblLastName;
+    private javax.swing.JLabel lblMiddleName;
+    private javax.swing.JLabel lblNationality;
+    private javax.swing.JLabel lblPersonalHdr;
+    private javax.swing.JLabel lblPrevSchool;
+    private javax.swing.JLabel lblPrevStrand;
+    private javax.swing.JLabel lblProgram;
+    private javax.swing.JLabel lblReligion;
+    private javax.swing.JLabel lblSchoolYear;
     private javax.swing.JLabel lblStatus;
     private javax.swing.JLabel lblTitle;
     private javax.swing.JLabel lblUser;
+    private javax.swing.JPanel pnlAcademic;
     private javax.swing.JPanel pnlBody;
+    private javax.swing.JPanel pnlContact;
+    private javax.swing.JPanel pnlGuardian;
+    private javax.swing.JPanel pnlPersonal;
     private javax.swing.JScrollPane scrollBody;
+    private javax.swing.JTextField tfAddress;
+    private javax.swing.JTextField tfBirthdate;
+    private javax.swing.JTextField tfBirthplace;
+    private javax.swing.JTextField tfContact;
+    private javax.swing.JTextField tfEmail;
+    private javax.swing.JTextField tfFirstName;
+    private javax.swing.JTextField tfGuardian;
+    private javax.swing.JTextField tfGuardianContact;
+    private javax.swing.JTextField tfLastName;
+    private javax.swing.JTextField tfMiddleName;
+    private javax.swing.JTextField tfNationality;
+    private javax.swing.JTextField tfPrevSchool;
+    private javax.swing.JTextField tfPrevStrand;
+    private javax.swing.JTextField tfReligion;
+    private javax.swing.JTextField tfSchoolYear;
     private javax.swing.JPanel topBar;
     // End of variables declaration//GEN-END:variables
 }
