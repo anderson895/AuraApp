@@ -265,6 +265,7 @@
                               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                               <Component id="btnClear1" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="sepReq1" alignment="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -381,6 +382,7 @@
                               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                               <Component id="btnClear2" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="sepReq2" alignment="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -497,6 +499,7 @@
                               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                               <Component id="btnClear3" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="sepReq3" alignment="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -613,6 +616,7 @@
                               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                               <Component id="btnClear4" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="sepReq4" alignment="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -729,6 +733,7 @@
                               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                               <Component id="btnClear5" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="sepReq5" alignment="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
@@ -845,6 +850,7 @@
                               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
                               <Component id="btnClear6" min="-2" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="sepReq6" alignment="0" pref="0" max="32767" attributes="0"/>
                       </Group>
                     </DimensionLayout>
                     <DimensionLayout dim="1">
