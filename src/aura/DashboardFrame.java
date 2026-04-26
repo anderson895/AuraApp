@@ -39,7 +39,12 @@ public class DashboardFrame extends javax.swing.JFrame {
         lblWelcome.setForeground(new java.awt.Color(200, 16, 46));
         lblWelcome.setText("AURA Student Portal");
 
+        btnLogout.setBackground(new java.awt.Color(200, 16, 46));
+        btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btnLogout.setForeground(new java.awt.Color(255, 255, 255));
         btnLogout.setText("Logout");
+        btnLogout.setBorderPainted(false);
+        btnLogout.setOpaque(true);
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogoutActionPerformed(evt);

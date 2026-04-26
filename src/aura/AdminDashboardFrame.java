@@ -123,9 +123,11 @@ public class AdminDashboardFrame extends javax.swing.JFrame {
         lblUserName.setText("Administrator");
 
         btnLogout.setBackground(new java.awt.Color(255, 255, 255));
-        btnLogout.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
+        btnLogout.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
         btnLogout.setForeground(new java.awt.Color(200, 16, 46));
         btnLogout.setText("Logout");
+        btnLogout.setContentAreaFilled(false);
+        btnLogout.setOpaque(true);
         btnLogout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLogoutActionPerformed(evt);
